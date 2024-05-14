@@ -96,7 +96,7 @@ List<RouteBase> get routes => [
             builder: (context, state) => HomeScreen(),
           ),
           GoRoute(
-            path: '/allonefood',
+            path: '/all_one_food',
             name: AllOneFoodScreen.routeName,
             builder: (context, state) => AllOneFoodScreen(),
           ),

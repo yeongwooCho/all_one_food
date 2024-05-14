@@ -1,6 +1,7 @@
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/home/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,7 +29,9 @@ class CompletionScreen extends StatelessWidget {
               ),
             ),
             PrimaryButton(
-              onPressed: () {},
+              onPressed: () {
+                context.goNamed(HomeScreen.routeName);
+              },
               child: const Text('홈으로 이동'),
             )
           ],
