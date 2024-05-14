@@ -92,6 +92,8 @@ flutter:
     - asset/img/user/
     - asset/img/social_login/button/
     - asset/img/social_login/screen/
+    - asset/img/category/
+    - asset/img/banner/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
