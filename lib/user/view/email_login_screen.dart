@@ -5,22 +5,17 @@ import 'package:all_one_food/common/const/image_path.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/common/provider/global_provider.dart';
 import 'package:all_one_food/user/view/term_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class EmailLoginScreen extends StatefulWidget {
+class EmailLoginScreen extends StatelessWidget {
   static String get routeName => "email_login";
 
   const EmailLoginScreen({super.key});
-
-  @override
-  State<EmailLoginScreen> createState() => _EmailLoginScreenState();
-}
-
-class _EmailLoginScreenState extends State<EmailLoginScreen> {
-  bool isAutoLogin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +62,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                 ],
               ),
               const SizedBox(height: 8.0),
-              renderAutoLogin(),
+              const _AutoLoginButton(),
               const SizedBox(height: 40.0),
               const _BottomButtons(),
             ],
@@ -76,13 +71,18 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
       ),
     );
   }
+}
 
-  Widget renderAutoLogin() {
+class _AutoLoginButton extends ConsumerWidget {
+  const _AutoLoginButton({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isAutoLogin = ref.watch(isAutoLoginProvider);
+
     return GestureDetector(
       onTap: () {
-        setState(() {
-          isAutoLogin = !isAutoLogin;
-        });
+        ref.read(isAutoLoginProvider.notifier).state = !isAutoLogin;
       },
       child: Container(
         color: MyColor.empty,

@@ -1,6 +1,6 @@
 import 'package:all_one_food/common/component/custom_loading.dart';
 import 'package:all_one_food/common/const/colors.dart';
-import 'package:all_one_food/common/provider/loading_provider.dart';
+import 'package:all_one_food/common/provider/global_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -22,7 +22,7 @@ class DefaultLayout extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = ref.watch(loadingProvider);
+    final isLoading = ref.watch(isLoadingProvider);
 
     return Stack(
       children: [
