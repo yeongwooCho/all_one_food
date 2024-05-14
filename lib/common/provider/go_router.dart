@@ -1,4 +1,5 @@
 import 'package:all_one_food/all_one_food/view/all_one_food_screen.dart';
+import 'package:all_one_food/all_one_food/view/request_consulting_screen.dart';
 import 'package:all_one_food/common/view/completion_screen.dart';
 import 'package:all_one_food/common/view/error_screen.dart';
 import 'package:all_one_food/common/view/root_tab.dart';
@@ -99,6 +100,14 @@ List<RouteBase> get routes => [
             path: '/all_one_food',
             name: AllOneFoodScreen.routeName,
             builder: (context, state) => AllOneFoodScreen(),
+            routes: [
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'request_consulting',
+                name: RequestConsultingScreen.routeName,
+                builder: (context, state) => RequestConsultingScreen(),
+              ),
+            ],
           ),
           GoRoute(
             path: '/product',
