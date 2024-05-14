@@ -1,8 +1,8 @@
 import 'package:all_one_food/common/const/colors.dart';
+import 'package:all_one_food/common/const/terms.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
-import 'package:all_one_food/common/const/terms.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

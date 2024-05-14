@@ -1,6 +1,5 @@
 import 'package:all_one_food/common/component/custom_loading.dart';
 import 'package:all_one_food/common/const/colors.dart';
-import 'package:all_one_food/common/provider/global_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
