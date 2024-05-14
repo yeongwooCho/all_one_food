@@ -1,6 +1,6 @@
 import 'package:all_one_food/common/component/custom_text_form_field.dart';
+import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/show/show_custom_toast.dart';
-import 'package:all_one_food/common/const/button_style.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
@@ -25,82 +25,82 @@ class _CertificationScreenState extends State<CertificationScreen> {
   Widget build(BuildContext context) {
     return DefaultLayout(
       appbar: const DefaultAppBar(title: '회원가입'),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 20.0),
-            const Text(
-              '본인 인증을\n진행해 주세요.',
-              style: MyTextStyle.headTitle,
-            ),
-            const SizedBox(height: 40.0),
-            CustomTextFormField(
-              hintText: '이름',
-              onChanged: (String value) {},
-              onSaved: (String? newValue) {},
-              validator: (String? value) {
-                return null;
-              },
-            ),
-            const SizedBox(height: 8.0),
-            Row(
-              children: [
-                Expanded(
-                  child: CustomTextFormField(
-                    hintText: '휴대폰 번호',
-                    onChanged: (String value) {},
-                    onSaved: (String? newValue) {},
-                    validator: (String? value) {
-                      return null;
-                    },
-                    textInputType: TextInputType.number,
-                  ),
-                ),
-                const SizedBox(width: 8.0),
-                ElevatedButton(
-                  onPressed: () {
-                    showCustomToast(context, msg: '인증번호가 전송되었습니다.');
-                    setState(() {
-                      isPushCertification = true;
-                    });
-                  },
-                  style: MyButtonStyle.secondary,
-                  child: isPushCertification
-                      ? const Text('재 전송')
-                      : const Text('인증번호 전송'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8.0),
-            Visibility(
-              visible: isPushCertification && !isDoneCertification,
-              child: Row(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 20.0),
+              const Text(
+                '본인 인증을\n진행해 주세요.',
+                style: MyTextStyle.headTitle,
+              ),
+              const SizedBox(height: 40.0),
+              CustomTextFormField(
+                hintText: '이름',
+                onChanged: (String value) {},
+                onSaved: (String? newValue) {},
+                validator: (String? value) {
+                  return null;
+                },
+              ),
+              const SizedBox(height: 20.0),
+              Row(
                 children: [
                   Expanded(
                     child: CustomTextFormField(
-                      hintText: '인증번호 입력',
+                      hintText: '휴대폰 번호',
                       onChanged: (String value) {},
                       onSaved: (String? newValue) {},
                       validator: (String? value) {
                         return null;
                       },
-                      textInputType: TextInputType.text,
+                      textInputType: TextInputType.number,
                     ),
                   ),
                   const SizedBox(width: 8.0),
-                  ElevatedButton(
-                    onPressed: () async {
-                      context.goNamed(InputInfoScreen.routeName);
+                  SecondaryButton(
+                    onPressed: () {
+                      showCustomToast(context, msg: '인증번호가 전송되었습니다.');
+                      setState(() {
+                        isPushCertification = true;
+                      });
                     },
-                    style: MyButtonStyle.secondary,
-                    child: const Text('인증번호 확인'),
+                    child: isPushCertification
+                        ? const Text('재 전송')
+                        : const Text('인증번호 전송'),
                   ),
                 ],
               ),
-            ),
-          ],
+              const SizedBox(height: 4.0),
+              Visibility(
+                visible: isPushCertification && !isDoneCertification,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextFormField(
+                        hintText: '인증번호 입력',
+                        onChanged: (String value) {},
+                        onSaved: (String? newValue) {},
+                        validator: (String? value) {
+                          return null;
+                        },
+                        textInputType: TextInputType.text,
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    SecondaryButton(
+                      onPressed: () async {
+                        context.goNamed(InputInfoScreen.routeName);
+                      },
+                      child: const Text('인증번호 확인'),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

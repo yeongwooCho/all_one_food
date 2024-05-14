@@ -21,12 +21,10 @@ class EmailLoginScreen extends StatefulWidget {
 
 class _EmailLoginScreenState extends State<EmailLoginScreen> {
   bool isAutoLogin = true;
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      isLoading: isLoading,
       appbar: const DefaultAppBar(title: '이메일 로그인'),
       child: SingleChildScrollView(
         child: Padding(
@@ -48,14 +46,18 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
                     hintText: "아이디",
                     onChanged: (String value) {},
                     onSaved: (String? newValue) {},
-                    validator: (String? value) {},
+                    validator: (String? value) {
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 4.0),
                   CustomTextFormField(
                     hintText: "비밀번호",
                     onChanged: (String value) {},
                     onSaved: (String? newValue) {},
-                    validator: (String? value) {},
+                    validator: (String? value) {
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20.0),
                   PrimaryButton(

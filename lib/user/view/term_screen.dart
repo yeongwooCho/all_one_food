@@ -3,6 +3,7 @@ import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/user/view/certification_screen.dart';
 import 'package:all_one_food/user/view/term_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -136,7 +137,11 @@ class _TermContainerState extends State<TermContainer> {
           ],
         ),
         PrimaryButton(
-          onPressed: isUse && isPersonalInfo ? () {} : null,
+          onPressed: isUse && isPersonalInfo
+              ? () {
+                  context.goNamed(CertificationScreen.routeName);
+                }
+              : null,
           child: const Text('확인'),
         ),
       ],
