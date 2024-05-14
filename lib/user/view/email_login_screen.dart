@@ -34,7 +34,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 100.0),
+              const SizedBox(height: 60.0),
               Image.asset(
                 ImagePath.logo,
                 width: MediaQuery.of(context).size.width * 3 / 7,
@@ -83,25 +83,25 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
         });
       },
       child: Container(
-        color: MyColor.white,
+        color: MyColor.empty,
         height: 40.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             isAutoLogin
                 ? PhosphorIcon(
-                    PhosphorIcons.checkCircle(
+                    PhosphorIcons.checkSquare(
                       PhosphorIconsStyle.fill,
                     ),
                     color: MyColor.primary,
-                    size: 24.0,
+                    size: 28.0,
                   )
                 : PhosphorIcon(
-                    PhosphorIcons.checkCircle(
+                    PhosphorIcons.checkSquare(
                       PhosphorIconsStyle.regular,
                     ),
                     color: MyColor.middleGrey,
-                    size: 24.0,
+                    size: 28.0,
                   ),
             const SizedBox(width: 6.0),
             const Text(
