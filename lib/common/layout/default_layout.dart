@@ -1,14 +1,15 @@
 import 'package:all_one_food/common/component/custom_loading.dart';
 import 'package:all_one_food/common/const/colors.dart';
+import 'package:all_one_food/common/provider/loading_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DefaultLayout extends StatefulWidget {
+class DefaultLayout extends ConsumerWidget {
   final Color? backgroundColor;
   final PreferredSizeWidget? appbar;
   final Widget? bottomNavigationBar;
   final FloatingActionButton? floatingActionButton;
   final Widget child;
-  final bool isLoading;
 
   const DefaultLayout({
     super.key,
@@ -17,41 +18,34 @@ class DefaultLayout extends StatefulWidget {
     this.bottomNavigationBar,
     this.floatingActionButton,
     required this.child,
-    this.isLoading = false,
   });
 
   @override
-  State<DefaultLayout> createState() => _DefaultLayoutState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isLoading = ref.watch(loadingProvider);
 
-class _DefaultLayoutState extends State<DefaultLayout> {
-  @override
-  Widget build(BuildContext context) {
     return Stack(
       children: [
         Scaffold(
-          appBar: widget.appbar,
-          backgroundColor: widget.backgroundColor ?? MyColor.white,
+          appBar: appbar,
+          backgroundColor: backgroundColor ?? MyColor.white,
           // 기본배경이 완전 흰색은 아니다.
           body: SafeArea(
             child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();
               },
-              child: widget.child,
+              child: child,
             ),
           ),
-          bottomNavigationBar: widget.bottomNavigationBar,
-          floatingActionButton: widget.floatingActionButton,
+          bottomNavigationBar: bottomNavigationBar,
+          floatingActionButton: floatingActionButton,
         ),
         Positioned.fill(
           child: Visibility(
-            visible: widget.isLoading,
-            child: Container(
-              // color: MyColor.barrier,
-              child: const Center(
-                child: CustomLoadingScreen(),
-              ),
+            visible: isLoading,
+            child: const Center(
+              child: CustomLoadingScreen(),
             ),
           ),
         )
