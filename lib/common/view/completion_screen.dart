@@ -15,26 +15,20 @@ class CompletionScreen extends StatelessWidget {
     final title = GoRouterState.of(context).pathParameters['title'];
 
     return DefaultLayout(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 40.0, right: 24.0, left: 24.0),
+        child: PrimaryButton(
+          onPressed: () async {
+            context.goNamed(HomeScreen.routeName);
+          },
+          child: const Text('홈으로 이동'),
+        ),
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 100.0),
-              child: Text(
-                title!,
-                style: MyTextStyle.headTitle,
-              ),
-            ),
-            PrimaryButton(
-              onPressed: () {
-                context.goNamed(HomeScreen.routeName);
-              },
-              child: const Text('홈으로 이동'),
-            )
-          ],
+        padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 140.0),
+        child: Text(
+          title!,
+          style: MyTextStyle.headTitle,
         ),
       ),
     );

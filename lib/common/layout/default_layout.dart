@@ -10,6 +10,7 @@ class DefaultLayout extends ConsumerWidget {
   final Widget? bottomNavigationBar;
   final FloatingActionButton? floatingActionButton;
   final Widget child;
+  final bool isLoading;
 
   const DefaultLayout({
     super.key,
@@ -17,13 +18,12 @@ class DefaultLayout extends ConsumerWidget {
     this.appbar,
     this.bottomNavigationBar,
     this.floatingActionButton,
+    this.isLoading = false,
     required this.child,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = ref.watch(isLoadingProvider);
-
     return Stack(
       children: [
         Scaffold(

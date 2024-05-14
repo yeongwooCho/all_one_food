@@ -13,14 +13,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class EmailLoginScreen extends StatelessWidget {
+class EmailLoginScreen extends StatefulWidget {
   static String get routeName => "email_login";
 
   const EmailLoginScreen({super.key});
 
   @override
+  State<EmailLoginScreen> createState() => _EmailLoginScreenState();
+}
+
+class _EmailLoginScreenState extends State<EmailLoginScreen> {
+  bool isLoading = false;
+
+  @override
   Widget build(BuildContext context) {
     return DefaultLayout(
+      isLoading: isLoading,
       appbar: const DefaultAppBar(title: '이메일 로그인'),
       child: SingleChildScrollView(
         child: Padding(
@@ -58,6 +66,13 @@ class EmailLoginScreen extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   PrimaryButton(
                     onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await Future.delayed(const Duration(seconds: 1));
+                      setState(() {
+                        isLoading = false;
+                      });
                       context.goNamed(HomeScreen.routeName);
                     },
                     child: const Text('로그인'),

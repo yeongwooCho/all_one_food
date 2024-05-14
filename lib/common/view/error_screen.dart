@@ -1,3 +1,5 @@
+import 'package:all_one_food/common/component/default_button.dart';
+import 'package:all_one_food/home/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -17,16 +19,17 @@ class ErrorScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Error"),
       ),
-      body: ListView(
-        children: [
-          Text('Error: $error'),
-          ElevatedButton(
-            onPressed: () {
-              context.go('/');
-            },
-            child: const Text('홈으로 이동'),
-          ),
-        ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 40.0, right: 24.0, left: 24.0),
+        child: PrimaryButton(
+          onPressed: () async {
+            context.goNamed(HomeScreen.routeName);
+          },
+          child: const Text('홈으로 이동'),
+        ),
+      ),
+      body: Center(
+        child: Text('Error: $error'),
       ),
     );
   }

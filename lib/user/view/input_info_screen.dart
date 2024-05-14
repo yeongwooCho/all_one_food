@@ -18,6 +18,7 @@ class InputInfoScreen extends ConsumerStatefulWidget {
 }
 
 class _InputInfoScreenState extends ConsumerState<InputInfoScreen> {
+  bool isLoading = false;
   String? email;
   String? password;
   String? passwordCheck;
@@ -27,11 +28,20 @@ class _InputInfoScreenState extends ConsumerState<InputInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
+      isLoading: isLoading,
       appbar: const DefaultAppBar(title: '회원가입'),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 40.0, right: 24.0, left: 24.0),
         child: PrimaryButton(
           onPressed: () async {
+            setState(() {
+              isLoading = true;
+            });
+            await Future.delayed(const Duration(seconds: 1));
+            setState(() {
+              isLoading = false;
+            });
+
             context.goNamed(
               CompletionScreen.routeName,
               pathParameters: {"title": "회원가입이\n정상적으로\n완료 되었습니다."},
