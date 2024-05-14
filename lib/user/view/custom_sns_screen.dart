@@ -1,4 +1,5 @@
 import 'package:all_one_food/common/const/image_path.dart';
+import 'package:all_one_food/home/view/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -42,7 +43,7 @@ class _CustomSnsScreenState extends State<CustomSnsScreen> {
   void delay() async {
     await Future.delayed(const Duration(seconds: 1));
 
-    // context.goNamed(EventScreen.routeName);
+    context.goNamed(HomeScreen.routeName);
   }
 
   String switchImagePath({required String? kind}) {

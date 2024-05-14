@@ -6,6 +6,7 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/provider/global_provider.dart';
+import 'package:all_one_food/home/view/home_screen.dart';
 import 'package:all_one_food/user/view/term_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,7 +57,9 @@ class EmailLoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 20.0),
                   PrimaryButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      context.goNamed(HomeScreen.routeName);
+                    },
                     child: const Text('로그인'),
                   ),
                 ],
