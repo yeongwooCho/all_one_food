@@ -10,12 +10,15 @@ class MyButtonStyle {
     disabledForegroundColor: MyColor.darkGrey,
     disabledBackgroundColor: MyColor.lightGrey,
     elevation: 0,
-    padding: const EdgeInsets.symmetric(vertical: 12.0),
+    padding: const EdgeInsets.symmetric(vertical: 16.0),
     minimumSize: const Size(60, 48),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),
-    textStyle: MyTextStyle.bodyBold.copyWith(color: MyColor.white, height: 1.0),
+    textStyle: MyTextStyle.bodyBold.copyWith(
+      color: MyColor.white,
+      height: 1.0,
+    ),
   );
 
   static ButtonStyle secondary = ElevatedButton.styleFrom(
@@ -24,8 +27,8 @@ class MyButtonStyle {
     disabledForegroundColor: MyColor.darkGrey,
     disabledBackgroundColor: MyColor.white,
     elevation: 0,
-    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
-    minimumSize: const Size(60, 40),
+    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+    minimumSize: const Size(60, 48),
     shape: RoundedRectangleBorder(
       side: const BorderSide(
         width: 1.0,
