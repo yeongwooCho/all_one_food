@@ -5,6 +5,7 @@ import 'package:all_one_food/common/view/error_screen.dart';
 import 'package:all_one_food/common/view/root_tab.dart';
 import 'package:all_one_food/common/view/splash_screen.dart';
 import 'package:all_one_food/home/view/home_screen.dart';
+import 'package:all_one_food/product/view/product_detail_screen.dart';
 import 'package:all_one_food/product/view/product_screen.dart';
 import 'package:all_one_food/profile/view/profile_screen.dart';
 import 'package:all_one_food/user/view/certification_screen.dart';
@@ -113,6 +114,19 @@ List<RouteBase> get routes => [
             path: '/product',
             name: ProductScreen.routeName,
             builder: (context, state) => ProductScreen(),
+            routes: [
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: ':id',
+                name: ProductDetailScreen.routeName,
+                builder: (context, state) {
+                  final productId =
+                      GoRouterState.of(context).pathParameters['id'];
+
+                  return ProductDetailScreen(id: int.parse(productId!));
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: '/profile',
