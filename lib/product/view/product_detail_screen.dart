@@ -1,0 +1,211 @@
+import 'package:all_one_food/common/component/default_button.dart';
+import 'package:all_one_food/common/component/divider_container.dart';
+import 'package:all_one_food/common/const/colors.dart';
+import 'package:all_one_food/common/const/text_styles.dart';
+import 'package:all_one_food/common/layout/default_app_bar.dart';
+import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/common/utils/data_utils.dart';
+import 'package:all_one_food/product/model/product_model.dart';
+import 'package:all_one_food/product/provider/product_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hidable/hidable.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+class ProductDetailScreen extends ConsumerStatefulWidget {
+  static String get routeName => 'product_detail';
+
+  final int id;
+
+  const ProductDetailScreen({
+    super.key,
+    required this.id,
+  });
+
+  @override
+  ConsumerState<ProductDetailScreen> createState() =>
+      _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  Widget build(BuildContext context) {
+    final product = ref.watch(productDetailProvider(widget.id));
+
+    final fullWidth = MediaQuery.of(context).size.width;
+    final safeTopPadding = MediaQuery.of(context).padding.top;
+
+    return DefaultLayout(
+      appbar: Hidable(
+        preferredWidgetSize:
+            Size.fromHeight(DefaultAppBar.defaultAppBarHeight + safeTopPadding),
+        controller: scrollController,
+        child: DefaultAppBar(
+          title: '',
+          action: [
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: IconButton(
+                onPressed: () {},
+                icon: PhosphorIcon(
+                  PhosphorIcons.shoppingCart(),
+                  size: 28.0,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Hidable(
+        controller: scrollController,
+        preferredWidgetSize: const Size.fromHeight(68),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  border: Border.all(
+                    width: 1.0,
+                    color: MyColor.middleGrey,
+                  ),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    ref.read(productProvider.notifier).updateLike(
+                          productId: product.id,
+                          isLike: !product.isLike,
+                        );
+                  },
+                  icon: product.isLike
+                      ? PhosphorIcon(
+                          PhosphorIcons.heart(PhosphorIconsStyle.fill),
+                          color: MyColor.error,
+                          size: 32.0,
+                        )
+                      : PhosphorIcon(
+                          PhosphorIcons.heart(),
+                          color: MyColor.middleGrey,
+                          size: 32.0,
+                        ),
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: PrimaryButton(
+                  onPressed: () {
+                    // context.pushNamed(OrderScreen.routeName);
+                    // ref
+                    //     .read(orderProvider.notifier)
+                    //     .addProductRightNow(productModel: product, amount: 1);
+                  },
+                  child: const Text('구매하기'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      child: SingleChildScrollView(
+        controller: scrollController,
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Image.asset(
+              product.mainImageUrl,
+              width: fullWidth,
+              height: fullWidth,
+              fit: BoxFit.fitWidth,
+            ),
+            renderProductInfo(product: product),
+            const DividerContainer(),
+            renderDescriptionImages(detailImages: product.detailImageUrls),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.0),
+              child: DividerContainer(),
+            ),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget renderProductInfo({
+    required ProductModel product,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            product.name,
+            style: MyTextStyle.bodyTitleMedium,
+          ),
+          const SizedBox(height: 12.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                '${product.sale}%',
+                style: MyTextStyle.bigTitleBold.copyWith(
+                  color: MyColor.red,
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Text(
+                '${DataUtils.convertPriceToMoneyString(price: product.price * (100 - product.sale) ~/ 100)} 원',
+                style: MyTextStyle.bigTitleBold,
+              ),
+            ],
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            '${DataUtils.convertPriceToMoneyString(price: product.price)} 원',
+            style: MyTextStyle.bodyRegular.copyWith(
+              color: MyColor.darkGrey,
+              decoration: TextDecoration.lineThrough,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget renderDescriptionImages({
+    required List<String> detailImages,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 24.0, top: 40.0, bottom: 8.0),
+          child: Text(
+            '상품 정보',
+            style: MyTextStyle.bigTitleMedium,
+          ),
+        ),
+        ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: detailImages.length,
+          itemBuilder: (context, index) {
+            return Container(
+              color: MyColor.darkGrey,
+              child: Image.asset(
+                detailImages[index],
+                fit: BoxFit.cover,
+              ),
+            );
+          },
+        ),
+      ],
+    );
+  }
+}
