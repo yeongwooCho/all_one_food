@@ -35,7 +35,8 @@ class SecondaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: MyButtonStyle.secondary,
+      style:
+          onPressed == null ? MyButtonStyle.disable : MyButtonStyle.secondary,
       child: child,
     );
   }
@@ -55,7 +56,8 @@ class ContainerButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      style: MyButtonStyle.container,
+      style:
+          onPressed == null ? MyButtonStyle.disable : MyButtonStyle.container,
       child: child,
     );
   }
