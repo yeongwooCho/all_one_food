@@ -72,6 +72,14 @@ class CustomTextFormField extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(8.0),
         ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            width: 1.0,
+            color: MyColor.middleGrey,
+          ),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        enabled: enabled,
         hintText: hintText,
         hintStyle: (hintText == null)
             ? null
@@ -84,7 +92,9 @@ class CustomTextFormField extends StatelessWidget {
       ),
       cursorColor: MyColor.primary,
       cursorHeight: 24.0,
-      style: MyTextStyle.descriptionRegular,
+      style: MyTextStyle.descriptionRegular.copyWith(
+        color: enabled ? MyColor.text : MyColor.middleGrey,
+      ),
       maxLength: maxLength,
       maxLines: maxLines,
       textInputAction: textInputAction,
