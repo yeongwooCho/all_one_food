@@ -5,6 +5,7 @@ import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/view/completion_screen.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,6 +20,8 @@ class InputInfoScreen extends ConsumerStatefulWidget {
 
 class _InputInfoScreenState extends ConsumerState<InputInfoScreen> {
   bool isLoading = false;
+  bool isCheckedDuplication = false;
+
   String? email;
   String? password;
   String? passwordCheck;
@@ -63,14 +66,32 @@ class _InputInfoScreenState extends ConsumerState<InputInfoScreen> {
                 style: MyTextStyle.headTitle,
               ),
               const SizedBox(height: 40.0),
-              CustomTextFormField(
-                hintText: '아이디',
-                onChanged: (String value) {},
-                onSaved: (String? newValue) {},
-                validator: (String? value) {
-                  return null;
-                },
-                textInputType: TextInputType.emailAddress,
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextFormField(
+                      enabled: !isCheckedDuplication,
+                      hintText: '아이디',
+                      onChanged: (String value) {},
+                      onSaved: (String? newValue) {},
+                      validator: (String? value) {
+                        return null;
+                      },
+                      textInputType: TextInputType.emailAddress,
+                    ),
+                  ),
+                  const SizedBox(width: 8.0),
+                  SecondaryButton(
+                    onPressed: isCheckedDuplication
+                        ? null
+                        : () {
+                            setState(() {
+                              isCheckedDuplication = true;
+                            });
+                          },
+                    child: const Text('중복 확인'),
+                  ),
+                ],
               ),
               const SizedBox(height: 20.0),
               CustomTextFormField(
