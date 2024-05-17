@@ -1,11 +1,13 @@
 import 'package:all_one_food/all_one_food/view/all_one_food_screen.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/const/colors.dart';
+import 'package:all_one_food/common/const/data.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
-import 'package:all_one_food/home/const/data.dart';
+import 'package:all_one_food/product/provider/category_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -45,11 +47,13 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class _CategoryContainer extends StatelessWidget {
+class _CategoryContainer extends ConsumerWidget {
   const _CategoryContainer({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categories = ref.watch(categoriesProvider);
+
     const double spacing = 12.0;
     const double horizontalPadding = 24.0;
     const double itemHorizontalPadding = 16.0;
@@ -84,7 +88,7 @@ class _CategoryContainer extends StatelessWidget {
                     ),
                     const SizedBox(height: 10.0),
                     Text(
-                      categories[index],
+                      categories[index + 1],
                       style: MyTextStyle.descriptionRegular,
                     ),
                   ],

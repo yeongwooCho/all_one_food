@@ -1,9 +1,13 @@
+import 'package:all_one_food/common/const/colors.dart';
+import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/product/component/vertical_item_grid.dart';
+import 'package:all_one_food/product/provider/category_provider.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ProductScreen extends ConsumerWidget {
   static String get routeName => "product";
@@ -13,10 +17,66 @@ class ProductScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final products = ref.watch(productProvider);
+    final categories = ref.watch(categoriesProvider);
 
     return DefaultLayout(
-      appbar: const DefaultAppBar(title: '상품 리스트'),
-      child: VerticalItemList(products: products),
+      appbar: DefaultAppBar(
+        title: '상품 리스트',
+        action: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              onPressed: () {},
+              icon: PhosphorIcon(
+                PhosphorIcons.shoppingCart(),
+                size: 28.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 84.0,
+            child: ListView.separated(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                final category = categories[index];
+
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1.0,
+                      color: MyColor.middleGrey,
+                    ),
+                    borderRadius: BorderRadius.circular(100.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
+                    child: Text(
+                      category,
+                      style: MyTextStyle.bodyRegular,
+                    ),
+                  ),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const SizedBox(width: 8.0);
+              },
+              itemCount: categories.length,
+            ),
+          ),
+          Expanded(
+            child: VerticalItemList(products: products),
+          ),
+        ],
+      ),
     );
   }
 }
