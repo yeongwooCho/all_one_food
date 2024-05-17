@@ -44,6 +44,7 @@ class _DefaultAppBarState extends State<DefaultAppBar> {
       centerTitle: widget.centerTitle,
       actions: widget.action,
       elevation: widget.elevation ?? 0.0,
+      scrolledUnderElevation: 0.0,
       backgroundColor: MyColor.white,
       foregroundColor: MyColor.text,
     );
