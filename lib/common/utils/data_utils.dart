@@ -20,7 +20,7 @@ class DataUtils {
   }) {
     final NumberFormat numberFormat = NumberFormat('###,###,###,###');
 
-    return '${numberFormat.format(price)} 원';
+    return numberFormat.format(price);
   }
 
   static int getRandomNumber({

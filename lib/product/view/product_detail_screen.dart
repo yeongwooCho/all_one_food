@@ -1,10 +1,12 @@
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/divider_container.dart';
+import 'package:all_one_food/common/component/show/show_component_modal_bottom_sheet.dart';
 import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
+import 'package:all_one_food/product/component/purchase_modal_bottom_sheet.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +31,7 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 
 class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   final ScrollController scrollController = ScrollController();
+  int count = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -97,10 +100,12 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               Expanded(
                 child: PrimaryButton(
                   onPressed: () {
-                    // context.pushNamed(OrderScreen.routeName);
-                    // ref
-                    //     .read(orderProvider.notifier)
-                    //     .addProductRightNow(productModel: product, amount: 1);
+                    showCustomModalBottomSheet(
+                      context: context,
+                      bottomSheetWidget: PurchaseModalBottomSheet(
+                        product: product,
+                      ),
+                    );
                   },
                   child: const Text('구매하기'),
                 ),

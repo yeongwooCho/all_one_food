@@ -39,7 +39,7 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
         name: '하이하이$index 이다.}',
         price: 12345,
         sale: index + 10,
-        mainImageUrl: ImagePath.logo,
+        mainImageUrl: 'asset/img/product/0.png',
         detailImageUrls: [ImagePath.logo, ImagePath.logo],
         isLike: true,
         categoryIds: [1, 2, 3],
