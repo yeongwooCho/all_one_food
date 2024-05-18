@@ -7,6 +7,7 @@ import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/product/component/purchase_modal_bottom_sheet.dart';
+import 'package:all_one_food/product/component/rating_container.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -129,12 +130,10 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             renderProductInfo(product: product),
             const DividerContainer(),
             renderDescriptionImages(detailImages: product.detailImageUrls),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.0),
-              child: DividerContainer(),
-            ),
-
-
+            const SizedBox(height: 40.0),
+            const DividerContainer(),
+            RatingContainer(),
+            const DividerContainer(),
           ],
         ),
       ),
