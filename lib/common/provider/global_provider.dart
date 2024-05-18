@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final isAutoLoginProvider = StateProvider<bool>((ref) => true);
 
+final isSelectedRating = StateProvider<bool>((ref) => true);
+
 final ratingProvider = StateProvider<List<RatingModel>>((ref) => [
       RatingModel(
         id: 0,

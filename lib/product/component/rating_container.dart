@@ -13,6 +13,7 @@ class RatingContainer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ratings = ref.watch(ratingProvider);
+    final isSelected = ref.watch(isSelectedRating);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24.0),
@@ -27,17 +28,25 @@ class RatingContainer extends ConsumerWidget {
                 style: MyTextStyle.bigTitleMedium,
               ),
               IconButton(
-                onPressed: () {},
-                icon: PhosphorIcon(
-                  PhosphorIcons.caretDown(),
-                  size: 32.0,
-                ),
+                onPressed: () {
+                  ref.read(isSelectedRating.notifier).state = !isSelected;
+                },
+                icon: isSelected
+                    ? PhosphorIcon(
+                        PhosphorIcons.caretDown(),
+                        size: 32.0,
+                      )
+                    : PhosphorIcon(
+                        PhosphorIcons.caretUp(),
+                        size: 32.0,
+                      ),
               ),
             ],
           ),
           const SizedBox(height: 8.0),
-          ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
+          if (isSelected)
+            ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
               final rating = ratings[index];
