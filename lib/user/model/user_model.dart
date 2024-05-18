@@ -1,3 +1,4 @@
+import 'package:all_one_food/user/model/address_model.dart';
 import 'package:all_one_food/user/model/business_model.dart';
 
 abstract class UserModelBase {}
@@ -21,6 +22,7 @@ class UserModel extends UserModelBase {
   final String phone;
   final String profileImage;
   final BusinessModel business;
+  final AddressModel address;
 
   UserModel({
     required this.id,
@@ -31,6 +33,7 @@ class UserModel extends UserModelBase {
     required this.phone,
     required this.profileImage,
     required this.business,
+    required this.address,
   });
 
   UserModel copyWith({
@@ -42,6 +45,7 @@ class UserModel extends UserModelBase {
     String? phone,
     String? profileImage,
     BusinessModel? business,
+    AddressModel? address,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -52,6 +56,7 @@ class UserModel extends UserModelBase {
       phone: phone ?? this.phone,
       profileImage: profileImage ?? this.profileImage,
       business: business ?? this.business,
+      address: address ?? this.address,
     );
   }
 }
