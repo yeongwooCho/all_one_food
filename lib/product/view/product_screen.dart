@@ -20,6 +20,7 @@ class ProductScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final products = ref.watch(productProvider);
     final categories = ref.watch(categoriesProvider);
+    final selectedCategory = ref.watch(categorySelectedProvider);
 
     return DefaultLayout(
       appbar: DefaultAppBar(
@@ -52,20 +53,34 @@ class ProductScreen extends ConsumerWidget {
 
                 return Container(
                   decoration: BoxDecoration(
+                    color:
+                        selectedCategory == category ? MyColor.primary : null,
                     border: Border.all(
                       width: 1.0,
-                      color: MyColor.middleGrey,
+                      color: selectedCategory == category
+                          ? MyColor.empty
+                          : MyColor.middleGrey,
                     ),
                     borderRadius: BorderRadius.circular(100.0),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                      vertical: 8.0,
-                    ),
-                    child: Text(
-                      category,
-                      style: MyTextStyle.bodyRegular,
+                  child: InkWell(
+                    onTap: () {
+                      ref.read(categorySelectedProvider.notifier).state =
+                          category;
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8.0,
+                      ),
+                      child: Text(
+                        category,
+                        style: MyTextStyle.bodyRegular.copyWith(
+                          color: selectedCategory == category
+                              ? MyColor.white
+                              : null,
+                        ),
+                      ),
                     ),
                   ),
                 );
