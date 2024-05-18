@@ -8,6 +8,7 @@ import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/product/component/purchase_modal_bottom_sheet.dart';
 import 'package:all_one_food/product/component/rating_container.dart';
+import 'package:all_one_food/product/component/vertical_item_grid.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final product = ref.watch(productDetailProvider(widget.id));
+    final productPrefer = ref.watch(productPreferProvider);
 
     final fullWidth = MediaQuery.of(context).size.width;
     final safeTopPadding = MediaQuery.of(context).padding.top;
@@ -134,6 +136,14 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             const DividerContainer(),
             RatingContainer(),
             const DividerContainer(),
+            Padding(
+              padding: const EdgeInsets.only(left: 24.0, right: 24.0, top: 40.0),
+              child: Text(
+                '연관 상품 추천',
+                style: MyTextStyle.bigTitleMedium,
+              ),
+            ),
+            VerticalItemList(products: productPrefer)
           ],
         ),
       ),

@@ -1,6 +1,14 @@
 import 'package:all_one_food/common/const/image_path.dart';
+import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final productPreferProvider = Provider<List<ProductModel>>((ref) {
+  final products = ref.watch(productProvider);
+
+  final pairProducts = DataUtils.getRandomShuffledList<ProductModel>(products).take(2).toList();
+  return pairProducts;
+});
 
 final productDetailProvider = Provider.family<ProductModel, int>((ref, id) {
   final product =
