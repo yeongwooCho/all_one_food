@@ -5,12 +5,13 @@ import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/common/utils/data_utils.dart';
+import 'package:all_one_food/product/component/product_and_amount_card.dart';
 import 'package:all_one_food/product/view/product_screen.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hidable/hidable.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
@@ -33,87 +34,88 @@ class _CartScreenState extends ConsumerState<CartScreen> {
 
     return DefaultLayout(
       appbar: const DefaultAppBar(title: '장바구니'),
-      bottomNavigationBar: Hidable(
-        controller: scrollController,
-        preferredWidgetSize: const Size(double.infinity, 68.0),
-        child: carts.isNotEmpty
-            ? Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 20.0, left: 24.0, right: 24.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: PrimaryButton(
-                        onPressed: () {
-                          // ref
-                          //     .read(orderProvider.notifier)
-                          //     .addProductsFromCarts(carts: carts);
-                          // context.goNamed(OrderScreen.routeName);
-                        },
-                        child: const Text('선택한 상품 결제하기'),
+      bottomNavigationBar: carts.isNotEmpty
+          ? Padding(
+              padding:
+                  const EdgeInsets.only(bottom: 20.0, left: 24.0, right: 24.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: PrimaryButton(
+                      onPressed: () {
+                        // ref
+                        //     .read(orderProvider.notifier)
+                        //     .addProductsFromCarts(carts: carts);
+                        // context.goNamed(OrderScreen.routeName);
+                      },
+                      child: Text(
+                        '${DataUtils.convertPriceToMoneyString(
+                          price: carts.map((e) {
+                            return e.amount *
+                                (e.product.price *
+                                    (100 - e.product.sale) ~/
+                                    100);
+                          }).reduce((value, element) => value + element),
+                        )} 원 주문하기',
                       ),
                     ),
-                  ],
-                ),
-              )
-            : const SizedBox(height: 0.0),
-      ),
+                  ),
+                ],
+              ),
+            )
+          : const SizedBox(height: 0.0),
       child: carts.isNotEmpty
           ? Column(
               children: [
-                Hidable(
-                  controller: scrollController,
-                  preferredWidgetSize: const Size.fromHeight(72.0),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20.0,
-                      horizontal: 24.0,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            // ref
-                            //     .read(cartProvider.notifier)
-                            //     .updateAllSelected(isSelected: !isAllSelected);
-                          },
-                          child: Row(
-                            children: [
-                              (isAllSelected)
-                                  ? PhosphorIcon(
-                                      PhosphorIcons.checkCircle(
-                                        PhosphorIconsStyle.fill,
-                                      ),
-                                      color: MyColor.primary,
-                                      size: 32.0,
-                                    )
-                                  : PhosphorIcon(
-                                      PhosphorIcons.circle(),
-                                      color: MyColor.text,
-                                      size: 32.0,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20.0,
+                    horizontal: 24.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          ref
+                              .read(cartProvider.notifier)
+                              .updateAllSelected(isSelected: !isAllSelected);
+                        },
+                        child: Row(
+                          children: [
+                            (isAllSelected)
+                                ? PhosphorIcon(
+                                    PhosphorIcons.checkSquare(
+                                      PhosphorIconsStyle.fill,
                                     ),
-                              const SizedBox(width: 8.0),
-                              const Text(
-                                '전체 선택',
-                                style: MyTextStyle.bodyBold,
-                              ),
-                            ],
-                          ),
+                                    color: MyColor.primary,
+                                    size: 32.0,
+                                  )
+                                : PhosphorIcon(
+                                    PhosphorIcons.square(),
+                                    color: MyColor.text,
+                                    size: 32.0,
+                                  ),
+                            const SizedBox(width: 8.0),
+                            const Text(
+                              '전체 선택',
+                              style: MyTextStyle.bodyMedium,
+                            ),
+                          ],
                         ),
-                        InkWell(
-                          onTap: () {
-                            // ref
-                            //     .read(cartProvider.notifier)
-                            //     .removeAllSelectedProduct();
-                          },
-                          child: const Text(
-                            '선택 삭제',
-                            style: MyTextStyle.bodyBold,
-                          ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          ref
+                              .read(cartProvider.notifier)
+                              .removeAllSelectedProduct();
+                        },
+                        child: const Text(
+                          '선택 삭제',
+                          style: MyTextStyle.bodyMedium,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
                 const DividerContainer(),
@@ -126,104 +128,45 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       final cart = carts[index];
 
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                              left: 16.0,
-                              right: 16.0,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    // ref
-                                    //     .read(cartProvider.notifier)
-                                    //     .updateSelected(
-                                    //       cartId: cart.id,
-                                    //       isSelected: !cart.isSelected,
-                                    //     );
-                                  },
-                                  icon: cart.isSelected
-                                      ? PhosphorIcon(
-                                          PhosphorIcons.checkCircle(
-                                            PhosphorIconsStyle.fill,
-                                          ),
-                                          color: MyColor.primary,
-                                        )
-                                      : PhosphorIcon(PhosphorIcons.circle()),
-                                  iconSize: 32.0,
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    // ref
-                                    //     .read(cartProvider.notifier)
-                                    //     .removeProduct(id: cart.id);
-                                  },
-                                  icon: PhosphorIcon(PhosphorIcons.x()),
-                                  iconSize: 32.0,
-                                ),
-                              ],
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: IconButton(
+                              onPressed: () {
+                                ref.read(cartProvider.notifier).updateSelected(
+                                      cartId: cart.id,
+                                      isSelected: !cart.isSelected,
+                                    );
+                              },
+                              icon: cart.isSelected
+                                  ? PhosphorIcon(
+                                      PhosphorIcons.checkSquare(
+                                        PhosphorIconsStyle.fill,
+                                      ),
+                                      color: MyColor.primary,
+                                    )
+                                  : PhosphorIcon(PhosphorIcons.square()),
+                              iconSize: 32.0,
                             ),
                           ),
-                          // VerticalItemListCard(
-                          //   product: cart.productModel,
-                          //   amount: cart.amount,
-                          //   amountUpdateButton: InkWell(
-                          //     onTap: () {
-                          //       showModalBottomSheet(
-                          //         context: context,
-                          //         builder: (_) {
-                          //           return Container(
-                          //             height: 200.0,
-                          //             decoration: BoxDecoration(
-                          //                 borderRadius:
-                          //                     BorderRadius.circular(12.0),
-                          //                 color: MyColor.white),
-                          //             child: CupertinoPicker(
-                          //               itemExtent: 40.0,
-                          //               onSelectedItemChanged: (int value) {
-                          //                 // ref
-                          //                 //     .read(cartProvider.notifier)
-                          //                 //     .updateAmount(
-                          //                 //       cartId: cart.id,
-                          //                 //       amount: value + 1,
-                          //                 //     );
-                          //               },
-                          //               children: List.generate(
-                          //                 100,
-                          //                 (index) => Center(
-                          //                   child: Text(
-                          //                     (index + 1).toString(),
-                          //                   ),
-                          //                 ),
-                          //               ).toList(),
-                          //             ),
-                          //           );
-                          //         },
-                          //       );
-                          //     },
-                          //     child: Container(
-                          //       color: MyColor.primary,
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.all(4.0),
-                          //         child: Text(
-                          //           '갯수 변경',
-                          //           style: MyTextStyle.minimumRegular.copyWith(
-                          //             color: MyColor.white,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0,
+                            ),
+                            child: ProductAndAmountCard(cart: cart),
+                          ),
                         ],
                       );
                     },
                     separatorBuilder: (context, index) {
                       return const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 24.0),
-                        child: Divider(height: 40.0),
+                        child: Divider(
+                          height: 40.0,
+                          color: MyColor.middleGrey,
+                        ),
                       );
                     },
                     itemCount: carts.length,

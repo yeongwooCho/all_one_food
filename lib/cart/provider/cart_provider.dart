@@ -20,7 +20,7 @@ class CartStateNotifier extends StateNotifier<List<CartModel>> {
       ...state,
       CartModel(
         id: DataUtils.getUuid(),
-        productModel: product,
+        product: product,
         amount: amount,
         isSelected: true,
       ),
@@ -35,7 +35,7 @@ class CartStateNotifier extends StateNotifier<List<CartModel>> {
       ...products.map(
         (e) => CartModel(
           id: DataUtils.getUuid(),
-          productModel: e,
+          product: e,
           amount: 1,
           isSelected: true,
         ),
