@@ -53,6 +53,7 @@ dependencies:
   # Statement Manager
   go_router: ^7.0.1
   flutter_riverpod: ^2.0.2
+  uuid: ^4.2.2
 
   # function
   table_calendar: ^3.0.9
