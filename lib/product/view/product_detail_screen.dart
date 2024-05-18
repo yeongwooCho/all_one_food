@@ -1,3 +1,4 @@
+import 'package:all_one_food/cart/view/cart_screen.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/divider_container.dart';
 import 'package:all_one_food/common/component/show/show_component_modal_bottom_sheet.dart';
@@ -13,6 +14,7 @@ import 'package:all_one_food/product/model/product_model.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hidable/hidable.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -54,7 +56,9 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(CartScreen.routeName);
+                },
                 icon: PhosphorIcon(
                   PhosphorIcons.shoppingCart(),
                   size: 28.0,

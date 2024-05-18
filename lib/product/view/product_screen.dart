@@ -1,3 +1,4 @@
+import 'package:all_one_food/cart/view/cart_screen.dart';
 import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
@@ -7,6 +8,7 @@ import 'package:all_one_food/product/provider/category_provider.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ProductScreen extends ConsumerWidget {
@@ -26,7 +28,9 @@ class ProductScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.pushNamed(CartScreen.routeName);
+              },
               icon: PhosphorIcon(
                 PhosphorIcons.shoppingCart(),
                 size: 28.0,
