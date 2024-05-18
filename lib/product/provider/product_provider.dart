@@ -33,13 +33,13 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
 
   List<ProductModel> getItems() {
     return List.generate(
-      10,
+      11,
       (index) => ProductModel(
         id: index,
         name: '하이하이$index 이다.}',
         price: 12345,
         sale: index + 10,
-        mainImageUrl: 'asset/img/product/0.png',
+        mainImageUrl: 'asset/img/product/${index}.png',
         detailImageUrls: [ImagePath.logo, ImagePath.logo],
         isLike: true,
         categoryIds: [1, 2, 3],
