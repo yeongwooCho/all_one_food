@@ -1,3 +1,4 @@
+import 'package:all_one_food/cart/provider/cart_provider.dart';
 import 'package:all_one_food/cart/view/cart_screen.dart';
 import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
@@ -6,6 +7,7 @@ import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/product/component/vertical_item_grid.dart';
 import 'package:all_one_food/product/provider/category_provider.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +25,8 @@ class ProductScreen extends ConsumerWidget {
     final selectedCategory = ref.watch(categorySelectedProvider);
     final randomProducts = ref.watch(productRandomProvider);
 
+    final carts = ref.watch(cartProvider);
+
     return DefaultLayout(
       appbar: DefaultAppBar(
         title: '상품 리스트',
@@ -33,9 +37,19 @@ class ProductScreen extends ConsumerWidget {
               onPressed: () {
                 context.pushNamed(CartScreen.routeName);
               },
-              icon: PhosphorIcon(
-                PhosphorIcons.shoppingCart(),
-                size: 28.0,
+              icon: badges.Badge(
+                showBadge: carts.isNotEmpty,
+                badgeContent: Text(
+                  carts.length.toString(),
+                  style: MyTextStyle.minimumRegular.copyWith(
+                    color: MyColor.white,
+                    height: 1.0,
+                  ),
+                ),
+                child: PhosphorIcon(
+                  PhosphorIcons.shoppingCart(),
+                  size: 28.0,
+                ),
               ),
             ),
           ),
