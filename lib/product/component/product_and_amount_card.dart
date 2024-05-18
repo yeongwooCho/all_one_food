@@ -9,10 +9,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ProductAndAmountCard extends ConsumerWidget {
   final CartModel cart;
+  final bool isFixed;
 
   const ProductAndAmountCard({
     super.key,
     required this.cart,
+    this.isFixed = false,
   });
 
   @override
@@ -61,15 +63,22 @@ class ProductAndAmountCard extends ConsumerWidget {
                       ),
                     ],
                   ),
+                  const SizedBox(height: 8.0),
+                  if (isFixed)
+                    Text(
+                      '수량: ${cart.amount}개',
+                      style: MyTextStyle.bodyRegular,
+                    ),
                 ],
               ),
             ],
           ),
         ),
         const SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        if (!isFixed)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               '수량 선택',

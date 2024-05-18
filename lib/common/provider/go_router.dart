@@ -6,6 +6,7 @@ import 'package:all_one_food/common/view/error_screen.dart';
 import 'package:all_one_food/common/view/root_tab.dart';
 import 'package:all_one_food/common/view/splash_screen.dart';
 import 'package:all_one_food/home/view/home_screen.dart';
+import 'package:all_one_food/order/view/create_order_screen.dart';
 import 'package:all_one_food/product/view/product_detail_screen.dart';
 import 'package:all_one_food/product/view/product_screen.dart';
 import 'package:all_one_food/profile/view/edit_profile_screen.dart';
@@ -150,6 +151,14 @@ List<RouteBase> get routes => [
         path: '/cart',
         name: CartScreen.routeName,
         builder: (context, state) => CartScreen(),
+        routes: [
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: 'create_order',
+            name: CreateOrderScreen.routeName,
+            builder: (context, state) => CreateOrderScreen(),
+          ),
+        ],
       ),
 
       // GoRoute(
