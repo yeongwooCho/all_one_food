@@ -21,6 +21,7 @@ class ProductScreen extends ConsumerWidget {
     final products = ref.watch(productProvider);
     final categories = ref.watch(categoriesProvider);
     final selectedCategory = ref.watch(categorySelectedProvider);
+    final randomProducts = ref.watch(productRandomProvider);
 
     return DefaultLayout(
       appbar: DefaultAppBar(
@@ -92,7 +93,10 @@ class ProductScreen extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: VerticalItemList(products: products),
+            child: VerticalItemList(
+                products: selectedCategory == categories.first
+                    ? products
+                    : randomProducts),
           ),
         ],
       ),
