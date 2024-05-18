@@ -8,6 +8,7 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
+import 'package:all_one_food/order/view/create_order_screen.dart';
 import 'package:all_one_food/product/component/product_and_amount_card.dart';
 import 'package:all_one_food/product/view/product_screen.dart';
 import 'package:collection/collection.dart';
@@ -48,7 +49,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                         // ref
                         //     .read(orderProvider.notifier)
                         //     .addProductsFromCarts(carts: carts);
-                        // context.goNamed(OrderScreen.routeName);
+                        context.goNamed(CreateOrderScreen.routeName);
                       },
                       child: Text(
                         '${DataUtils.convertPriceToMoneyString(

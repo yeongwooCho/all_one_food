@@ -3,6 +3,12 @@ import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final selectedCartProvider = Provider<List<CartModel>>((ref) {
+  final carts = ref.watch(cartProvider);
+
+  return carts.where((element) => element.isSelected).toList();
+});
+
 final cartProvider =
     StateNotifierProvider<CartStateNotifier, List<CartModel>>((ref) {
   return CartStateNotifier();
