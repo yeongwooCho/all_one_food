@@ -6,13 +6,19 @@ class DataUtils {
   static String convertDateTimeToDateString({
     required DateTime datetime,
   }) {
-    return '${datetime.year}.${datetime.month.toString().padLeft(2, '0')}.${datetime.day.toString().padLeft(2, '0')}';
+    return '${datetime.year}년 ${datetime.month.toString().padLeft(2, '0')}월 ${datetime.day.toString().padLeft(2, '0')}일';
   }
 
   static String convertDateTimeToDateTimeString({
     required DateTime datetime,
   }) {
-    return '${datetime.year}.${datetime.month.toString().padLeft(2, '0')}.${datetime.day.toString().padLeft(2, '0')} ${datetime.hour.toString().padLeft(2, '0')}:${datetime.minute.toString().padLeft(2, '0')}';
+    return '${datetime.year}년 ${datetime.month.toString().padLeft(2, '0')}월 ${datetime.day.toString().padLeft(2, '0')}일 ${datetime.hour.toString().padLeft(2, '0')}:${datetime.minute.toString().padLeft(2, '0')}';
+  }
+
+  static String convertDateTimeToTimeString({
+    required DateTime datetime,
+  }) {
+    return '${datetime.hour.toString().padLeft(2, '0')}:${datetime.minute.toString().padLeft(2, '0')}';
   }
 
   static String convertPriceToMoneyString({
