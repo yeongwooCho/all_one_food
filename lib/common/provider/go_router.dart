@@ -7,6 +7,7 @@ import 'package:all_one_food/common/view/splash_screen.dart';
 import 'package:all_one_food/home/view/home_screen.dart';
 import 'package:all_one_food/product/view/product_detail_screen.dart';
 import 'package:all_one_food/product/view/product_screen.dart';
+import 'package:all_one_food/profile/view/edit_profile_screen.dart';
 import 'package:all_one_food/profile/view/profile_screen.dart';
 import 'package:all_one_food/user/view/certification_screen.dart';
 import 'package:all_one_food/user/view/custom_sns_screen.dart';
@@ -132,6 +133,14 @@ List<RouteBase> get routes => [
             path: '/profile',
             name: ProfileScreen.routeName,
             builder: (context, state) => ProfileScreen(),
+            routes: [
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'edit',
+                name: EditProfileScreen.routeName,
+                builder: (context, state) => EditProfileScreen(),
+              ),
+            ],
           ),
         ],
       ),
