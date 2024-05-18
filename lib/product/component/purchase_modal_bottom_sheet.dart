@@ -1,3 +1,4 @@
+import 'package:all_one_food/cart/provider/cart_provider.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/show/show_custom_toast.dart';
 import 'package:all_one_food/common/const/colors.dart';
@@ -5,10 +6,11 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class PurchaseModalBottomSheet extends StatefulWidget {
+class PurchaseModalBottomSheet extends ConsumerStatefulWidget {
   final ProductModel product;
 
   const PurchaseModalBottomSheet({
@@ -17,11 +19,12 @@ class PurchaseModalBottomSheet extends StatefulWidget {
   });
 
   @override
-  State<PurchaseModalBottomSheet> createState() =>
+  ConsumerState<PurchaseModalBottomSheet> createState() =>
       _PurchaseModalBottomSheetState();
 }
 
-class _PurchaseModalBottomSheetState extends State<PurchaseModalBottomSheet> {
+class _PurchaseModalBottomSheetState
+    extends ConsumerState<PurchaseModalBottomSheet> {
   int count = 1;
 
   @override
@@ -158,6 +161,11 @@ class _PurchaseModalBottomSheetState extends State<PurchaseModalBottomSheet> {
             const SizedBox(height: 40.0),
             PrimaryButton(
               onPressed: () {
+                ref.read(cartProvider.notifier).addProduct(
+                      product: widget.product,
+                      amount: count,
+                    );
+
                 context.pop();
 
                 showCustomToast(context, msg: '장바구니에 상품을 담았습니다.');
