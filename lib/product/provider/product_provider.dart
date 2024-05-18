@@ -41,7 +41,7 @@ class ProductStateNotifier extends StateNotifier<List<ProductModel>> {
 
   List<ProductModel> getItems() {
     return List.generate(
-      11,
+      12,
       (index) => ProductModel(
         id: index,
         name: '하이하이$index 이다.}',

@@ -69,7 +69,7 @@ class _CategoryContainer extends ConsumerWidget {
         runSpacing: spacing,
         spacing: spacing,
         children: List.generate(
-          8,
+          categories.length - 1,
           (index) => InkWell(
             onTap: () {},
             child: Container(
