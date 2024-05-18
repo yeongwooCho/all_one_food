@@ -114,7 +114,7 @@ class ProfileScreen extends ConsumerWidget {
               ),
               title: '로그아웃',
               onTap: () {
-                showCupertinoAlert(
+                showCustomCupertinoAlert(
                   context: context,
                   titleWidget: const Text('로그아웃 하시겠습니까?'),
                   completeText: '확인',

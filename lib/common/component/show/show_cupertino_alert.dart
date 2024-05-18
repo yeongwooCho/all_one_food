@@ -1,7 +1,7 @@
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:flutter/cupertino.dart';
 
-void showCupertinoAlert({
+void showCustomCupertinoAlert({
   required BuildContext context,
   required Widget titleWidget,
   required String completeText,
@@ -24,6 +24,7 @@ void showCupertinoAlert({
             child: Text(
               completeText,
               style: MyTextStyle.bodyRegular.copyWith(
+                height: 1.0,
                 color: CupertinoColors.activeBlue,
               ),
             ),
@@ -34,6 +35,7 @@ void showCupertinoAlert({
             child: Text(
               cancelText,
               style: MyTextStyle.bodyRegular.copyWith(
+                height: 1.0,
                 color: CupertinoColors.activeBlue,
               ),
             ),

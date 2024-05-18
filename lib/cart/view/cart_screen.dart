@@ -1,6 +1,8 @@
 import 'package:all_one_food/cart/provider/cart_provider.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/divider_container.dart';
+import 'package:all_one_food/common/component/show/show_cupertino_alert.dart';
+import 'package:all_one_food/common/component/show/show_custom_toast.dart';
 import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
@@ -106,9 +108,23 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          ref
-                              .read(cartProvider.notifier)
-                              .removeAllSelectedProduct();
+                          showCustomCupertinoAlert(
+                            context: context,
+                            titleWidget: const Text('상품을 삭제하시겠습니까?'),
+                            completeText: '삭제하기',
+                            completeFunction: () {
+                              ref
+                                  .read(cartProvider.notifier)
+                                  .removeAllSelectedProduct();
+
+                              showCustomToast(context, msg: '상품을 삭제했습니다.');
+                              context.pop();
+                            },
+                            cancelText: '취소',
+                            cancelFunction: () {
+                              context.pop();
+                            },
+                          );
                         },
                         child: const Text(
                           '선택 삭제',
