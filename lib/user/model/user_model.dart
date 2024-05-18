@@ -1,3 +1,5 @@
+import 'package:all_one_food/user/model/business_model.dart';
+
 abstract class UserModelBase {}
 
 class UserModelLoading extends UserModelBase {}
@@ -18,6 +20,7 @@ class UserModel extends UserModelBase {
   final String name;
   final String phone;
   final String profileImage;
+  final BusinessModel business;
 
   UserModel({
     required this.id,
@@ -27,6 +30,7 @@ class UserModel extends UserModelBase {
     required this.name,
     required this.phone,
     required this.profileImage,
+    required this.business,
   });
 
   UserModel copyWith({
@@ -37,6 +41,7 @@ class UserModel extends UserModelBase {
     String? name,
     String? phone,
     String? profileImage,
+    BusinessModel? business,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -46,6 +51,7 @@ class UserModel extends UserModelBase {
       name: name ?? this.name,
       phone: phone ?? this.phone,
       profileImage: profileImage ?? this.profileImage,
+      business: business ?? this.business,
     );
   }
 }
