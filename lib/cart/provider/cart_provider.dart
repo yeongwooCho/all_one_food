@@ -2,7 +2,6 @@ import 'package:all_one_food/cart/model/cart_model.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:collection/collection.dart';
 
 final cartProvider =
     StateNotifierProvider<CartStateNotifier, List<CartModel>>((ref) {
@@ -16,15 +15,17 @@ class CartStateNotifier extends StateNotifier<List<CartModel>> {
     required ProductModel product,
     required int amount,
   }) {
-    state = [
-      ...state,
-      CartModel(
-        id: DataUtils.getUuid(),
-        product: product,
-        amount: amount,
-        isSelected: true,
-      ),
-    ];
+    if (state.where((element) => element.product.id == product.id).isEmpty) {
+      state = [
+        ...state,
+        CartModel(
+          id: DataUtils.getUuid(),
+          product: product,
+          amount: amount,
+          isSelected: true,
+        ),
+      ];
+    }
   }
 
   void addAllProduct({
