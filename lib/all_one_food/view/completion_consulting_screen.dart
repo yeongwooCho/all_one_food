@@ -1,8 +1,10 @@
+import 'package:all_one_food/all_one_food/view/reserve_consulting.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CompletionConsultingScreen extends StatelessWidget {
   static String get routeName => 'completion_consulting';
@@ -46,7 +48,9 @@ class CompletionConsultingScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
               child: PrimaryButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(ReserveConsultingScreen.routeName);
+                },
                 child: const Text('전문가 상담 요청'),
               ),
             ),
