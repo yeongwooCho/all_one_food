@@ -6,7 +6,9 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
+import 'package:all_one_food/common/view/completion_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ReserveConsultingScreen extends StatefulWidget {
   static String get routeName => 'reserve_consulting';
@@ -98,7 +100,12 @@ class _ReserveConsultingScreenState extends State<ReserveConsultingScreen> {
               ),
               const SizedBox(height: 40.0),
               PrimaryButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(
+                    CompletionScreen.routeName,
+                    pathParameters: {'title': '상담 요청이\n정상적으로\n완료 되었습니다.'},
+                  );
+                },
                 child: const Text('상담 신청 완료'),
               ),
               const SizedBox(height: 40.0),
