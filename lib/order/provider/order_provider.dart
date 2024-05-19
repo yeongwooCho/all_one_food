@@ -11,6 +11,12 @@ import 'package:all_one_food/user/model/user_model.dart';
 import 'package:all_one_food/user/provider/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+final orderDetailProvider = Provider.family<OrderModel, String>((ref, id) {
+  final orders = ref.watch(orderProvider);
+
+  return orders.firstWhere((element) => element.id == id);
+});
+
 final orderProvider =
     StateNotifierProvider<OrderStateNotifier, List<OrderModel>>((ref) {
   final products = ref.read(productProvider);

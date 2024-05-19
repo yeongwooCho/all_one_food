@@ -173,7 +173,10 @@ List<RouteBase> get routes => [
             parentNavigatorKey: _rootNavigatorKey,
             path: ':id',
             name: OrderDetailScreen.routeName,
-            builder: (context, state) => OrderDetailScreen(),
+            builder: (context, state) {
+              String id = state.pathParameters['id']!;
+              return OrderDetailScreen(id: id);
+            },
           ),
         ],
       ),

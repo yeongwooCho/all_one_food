@@ -7,8 +7,10 @@ import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/order/component/order_list_card.dart';
 import 'package:all_one_food/order/model/order_model.dart';
 import 'package:all_one_food/order/provider/order_provider.dart';
+import 'package:all_one_food/order/view/order_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grouped_list/grouped_list.dart';
 
 class OrderListScreen extends ConsumerWidget {
@@ -89,47 +91,41 @@ class DeliveryListView extends StatelessWidget {
           datetime: element.createdAt,
         ),
         groupSeparatorBuilder: (String groupByValue) => Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const DividerContainer(),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    groupByValue,
-                    style: MyTextStyle.bodyRegular,
-                    textAlign: TextAlign.start,
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      '주문상세',
-                      style: MyTextStyle.bodyRegular.copyWith(
-                        color: MyColor.primary,
-                      ),
-                    ),
-                  ),
-                ],
+              child: Text(
+                groupByValue,
+                style: MyTextStyle.bodyRegular,
+                textAlign: TextAlign.start,
               ),
             ),
           ],
         ),
         itemBuilder: (context, OrderModel element) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Divider(height: 1.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
+          return InkWell(
+            onTap: () {
+              context.pushNamed(OrderDetailScreen.routeName, pathParameters: {
+                'id': element.id,
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Divider(height: 1.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20.0,
+                    ),
+                    child: OrderListCard(order: element),
                   ),
-                  child: OrderListCard(order: element),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
