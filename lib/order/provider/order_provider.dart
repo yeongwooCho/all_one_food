@@ -1,7 +1,8 @@
-import 'dart:math';
-
 import 'package:all_one_food/cart/model/cart_model.dart';
+import 'package:all_one_food/common/utils/data_utils.dart';
+import 'package:all_one_food/order/model/delivery_model.dart';
 import 'package:all_one_food/order/model/order_model.dart';
+import 'package:all_one_food/order/model/payment_model.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,53 +22,27 @@ class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
   }) : super([]) {
     state = getOrders();
   }
-//
-//   void addProductRightNow({
-//     required ProductModel product,
-//     required int amount,
-//   }) {
-//     final now = DateTime.now();
-//     state = [
-//       ...state,
-//       OrderModel(
-//         product: productModel,
-//         amount: amount,
-//         deliveryState: DeliveryState.no,
-//         createdAt: DateTime(now.year, now.month, now.day), id: '', product: null,
-//       ),
-//     ];
-//   }
-//
-//   void addProductsFromCarts({
-//     required List<CartModel> carts,
-//   }) {
-//     final now = DateTime.now();
-//     state = [
-//       ...state,
-//       ...carts
-//           .map((e) => OrderModel(
-//                 productModel: e.product,
-//                 amount: e.amount,
-//                 deliveryState: DeliveryState.no,
-//                 createdAt: DateTime(now.year, now.month, now.day),
-//               ))
-//           .toList()
-//     ];
-//   }
-//
-//   void orderProducts() {
-//     state = [
-//       ...state.map((e) {
-//         if (e.deliveryState == DeliveryState.no) {
-//           return e.copyWith(
-//             deliveryState: DeliveryState.ready,
-//           );
-//         } else {
-//           return e;
-//         }
-//       }).toList()
-//     ];
-//   }
+
+  void orderFromCarts({
+    required List<CartModel> carts,
+    required String orderName,
+    required String orderPhone,
+    required DeliveryModel delivery,
+    required PaymentModel payment,
+  }) {
+    state = [
+      ...state,
+      OrderModel(
+        id: DataUtils.getUuid(),
+        createdAt: DateTime.now(),
+        name: orderName,
+        phone: orderPhone,
+        carts: carts,
+        delivery: delivery,
+        payment: payment,
+      ),
+    ];
+  }
 
   List<OrderModel> getOrders() {
     return [

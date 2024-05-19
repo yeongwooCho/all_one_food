@@ -25,7 +25,7 @@ class OrderModel {
 
   OrderModel({
     required this.id,
-    required this.status,
+    this.status = OrderStatus.ready,
     required this.createdAt,
     required this.name,
     required this.phone,
