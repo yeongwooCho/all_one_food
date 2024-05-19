@@ -1,16 +1,18 @@
-import 'package:all_one_food/cart/provider/cart_provider.dart';
+import 'package:all_one_food/cart/model/cart_model.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/product/component/product_and_amount_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductInfo extends ConsumerWidget {
-  const ProductInfo({super.key});
+class ProductInfo extends StatelessWidget {
+  final List<CartModel> carts;
+
+  const ProductInfo({
+    super.key,
+    required this.carts,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final carts = ref.watch(selectedCartProvider);
-
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24.0),
       child: Column(

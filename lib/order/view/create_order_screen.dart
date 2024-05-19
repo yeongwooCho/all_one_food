@@ -1,3 +1,4 @@
+import 'package:all_one_food/cart/provider/cart_provider.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/divider_container.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
@@ -7,6 +8,8 @@ import 'package:all_one_food/order/component/delivery_info.dart';
 import 'package:all_one_food/order/component/order_info.dart';
 import 'package:all_one_food/order/component/product_info.dart';
 import 'package:all_one_food/order/component/toss_payment_container.dart';
+import 'package:all_one_food/user/model/user_model.dart';
+import 'package:all_one_food/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -23,8 +26,26 @@ class CreateOrderScreen extends ConsumerStatefulWidget {
 class _OrderScreenState extends ConsumerState<CreateOrderScreen> {
   bool isLoading = false;
 
+  String cardName = ''; // 카드사 이름
+
   @override
   Widget build(BuildContext context) {
+    final carts = ref.watch(selectedCartProvider);
+    final user = ref.watch(userProvider) as UserModel;
+
+    // price
+    final productPrice = carts
+        .map((e) => e.product.price * e.amount)
+        .reduce((value, element) => value + element);
+    final totalPrice = carts
+        .map((e) => (e.product.price * (1 - e.product.sale / 100)) * e.amount)
+        .reduce((value, element) => value + element)
+        .toInt();
+    // final discountPrice = carts
+    //     .map((e) => (e.product.price * e.product.sale / 100) * e.amount)
+    //     .reduce((value, element) => value + element).toInt();
+    final discountPrice = productPrice - totalPrice;
+
     return DefaultLayout(
       isLoading: isLoading,
       appbar: const DefaultAppBar(title: '주문/결제'),
@@ -33,13 +54,22 @@ class _OrderScreenState extends ConsumerState<CreateOrderScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ProductInfo(),
+            ProductInfo(carts: carts),
             const DividerContainer(),
-            OrderInfo(),
+            OrderInfo(
+              user: user,
+              productPrice: productPrice,
+              discountPrice: discountPrice,
+              totalPrice: totalPrice,
+            ),
             const DividerContainer(),
-            DeliveryInfo(),
+            DeliveryInfo(address: user.address),
             const DividerContainer(),
-            TossPaymentContainer(),
+            TossPaymentContainer(
+              onChanged: (value) {
+                cardName = value;
+              },
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: PrimaryButton(

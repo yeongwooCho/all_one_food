@@ -1,14 +1,18 @@
 import 'package:all_one_food/common/component/custom_text_form_field.dart';
 import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
-import 'package:all_one_food/user/model/user_model.dart';
-import 'package:all_one_food/user/provider/user_provider.dart';
+import 'package:all_one_food/user/model/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class DeliveryInfo extends ConsumerStatefulWidget {
-  const DeliveryInfo({super.key});
+  final AddressModel address;
+
+  const DeliveryInfo({
+    super.key,
+    required this.address,
+  });
 
   @override
   ConsumerState<DeliveryInfo> createState() => _DeliveryInfoState();
@@ -26,14 +30,12 @@ class _DeliveryInfoState extends ConsumerState<DeliveryInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider) as UserModel;
-
     if (isSelectedEqual) {
-      _nameController.text = user.address.name;
-      _phoneController.text = user.address.phone;
-      _addressController.text = user.address.address;
-      _detailAddressController.text = user.address.detailAddress;
-      _memoController.text = user.address.memo;
+      _nameController.text = widget.address.name;
+      _phoneController.text = widget.address.phone;
+      _addressController.text = widget.address.address;
+      _detailAddressController.text = widget.address.detailAddress;
+      _memoController.text = widget.address.memo;
     } else {
       _nameController.text = '';
       _phoneController.text = '';

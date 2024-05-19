@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class TossPaymentContainer extends StatefulWidget {
-  const TossPaymentContainer({super.key});
+  final ValueChanged onChanged;
+
+  const TossPaymentContainer({
+    super.key,
+    required this.onChanged,
+  });
 
   @override
   State<TossPaymentContainer> createState() => _TossPaymentContainerState();
@@ -170,22 +175,8 @@ class _TossPaymentContainerState extends State<TossPaymentContainer> {
                   '하나카드',
                 ],
                 hintText: '카드사 선택',
-                onChanged: (String value) {
-                  print(value);
-                },
+                onChanged: widget.onChanged,
               ),
-
-              // CustomDropDownButton(
-              //   dropdownList: cards,
-              //   defaultValue: card,
-              //   onChanged: (String? value) {
-              //     if (value != null) {
-              //       card = value;
-              //       setState(() {});
-              //     }
-              //   },
-              //   menuMaxHeight: 400.0,
-              // ),
               const SizedBox(height: 32.0),
               Row(
                 children: [

@@ -1,34 +1,25 @@
 
-import 'package:all_one_food/cart/provider/cart_provider.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/user/model/user_model.dart';
-import 'package:all_one_food/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OrderInfo extends ConsumerWidget {
-  const OrderInfo({super.key});
+class OrderInfo extends StatelessWidget {
+  final UserModel user;
+  final int productPrice;
+  final int discountPrice;
+  final int totalPrice;
+
+  const OrderInfo({
+    super.key,
+    required this.user,
+    required this.productPrice,
+    required this.discountPrice,
+    required this.totalPrice,
+  });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider) as UserModel;
-    final carts = ref.watch(selectedCartProvider);
-
-    final productPrice = carts
-        .map((e) => e.product.price * e.amount)
-        .reduce((value, element) => value + element);
-
-    final totalPrice = carts
-        .map((e) => (e.product.price * (1 - e.product.sale / 100)) * e.amount)
-        .reduce((value, element) => value + element)
-        .toInt();
-
-    // final discountPrice = carts
-    //     .map((e) => (e.product.price * e.product.sale / 100) * e.amount)
-    //     .reduce((value, element) => value + element).toInt();
-    final discountPrice = productPrice - totalPrice;
-
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 24.0),
       child: Column(
