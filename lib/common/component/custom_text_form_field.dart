@@ -12,9 +12,11 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final bool obscureText;
+  final TextAlign textAlign;
   final String? hintText;
   final TextStyle? hintStyle;
   final Widget? suffixIcon;
+  final String? suffixText;
   final int? maxLength;
   final int? maxLines;
   final bool realOnly;
@@ -31,9 +33,11 @@ class CustomTextFormField extends StatelessWidget {
     this.textInputType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
     this.obscureText = false,
+    this.textAlign = TextAlign.start,
     this.hintText,
     this.hintStyle,
     this.suffixIcon,
+    this.suffixText,
     this.maxLength,
     this.maxLines = 1,
     this.realOnly = false,
@@ -53,6 +57,7 @@ class CustomTextFormField extends StatelessWidget {
       focusNode: focusNode,
       obscureText: obscureText,
       obscuringCharacter: '●',
+      textAlign: textAlign,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16.0,
@@ -89,6 +94,7 @@ class CustomTextFormField extends StatelessWidget {
                   )
                 : hintStyle,
         suffixIcon: suffixIcon,
+        suffixText: suffixText,
       ),
       cursorColor: MyColor.primary,
       cursorHeight: 24.0,
