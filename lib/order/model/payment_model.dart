@@ -8,7 +8,7 @@ class PaymentModel {
   PaymentModel({
     required this.id,
     required this.cardName,
-    required this.status,
+    this.status = '완료',
     required this.price,
     required this.createdAt,
   });
