@@ -90,13 +90,12 @@ class _OrderScreenState extends ConsumerState<CreateOrderScreen> {
                         cardName: cardName,
                         totalPrice: totalPrice,
                       );
+                  ref.read(cartProvider.notifier).removeAllSelectedProduct();
 
                   context.goNamed(
                     CompletionScreen.routeName,
                     pathParameters: {'title': '결제가\n정상적으로\n완료되었습니다.'},
                   );
-                  // ref.read(orderProvider.notifier).orderProducts();
-                  // ref.read(cartProvider.notifier).removeAll();
                 },
                 child: const Text('결제하기'),
               ),
