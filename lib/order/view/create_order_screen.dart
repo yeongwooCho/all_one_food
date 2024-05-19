@@ -16,7 +16,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class CreateOrderScreen extends ConsumerStatefulWidget {
-  static String get routeName => 'order';
+  static String get routeName => 'create_order';
 
   const CreateOrderScreen({super.key});
 

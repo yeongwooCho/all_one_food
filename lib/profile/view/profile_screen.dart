@@ -6,6 +6,7 @@ import 'package:all_one_food/common/const/image_path.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/order/view/order_list_screen.dart';
 import 'package:all_one_food/profile/component/all_one_food_modal_bottom_sheet.dart';
 import 'package:all_one_food/profile/view/edit_profile_screen.dart';
 import 'package:all_one_food/user/model/user_model.dart';
@@ -105,7 +106,9 @@ class ProfileScreen extends ConsumerWidget {
                 size: 28.0,
               ),
               title: '주문내역',
-              onTap: () {},
+              onTap: () {
+                context.pushNamed(OrderListScreen.routeName);
+              },
             ),
             renderIconAndTextButton(
               icon: PhosphorIcon(
