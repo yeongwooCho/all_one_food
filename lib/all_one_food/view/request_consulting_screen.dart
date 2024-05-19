@@ -1,3 +1,4 @@
+import 'package:all_one_food/all_one_food/view/completion_consulting_screen.dart';
 import 'package:all_one_food/common/component/custom_drop_down_multi.dart';
 import 'package:all_one_food/common/component/custom_drop_down_single.dart';
 import 'package:all_one_food/common/component/custom_ink_well_button.dart';
@@ -8,6 +9,7 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RequestConsultingScreen extends StatefulWidget {
   static String get routeName => 'request_consulting';
@@ -108,7 +110,10 @@ class _RequestConsultingScreenState extends State<RequestConsultingScreen> {
                         ),
                         const SizedBox(height: 8.0),
                         PrimaryButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context
+                                .goNamed(CompletionConsultingScreen.routeName);
+                          },
                           child: const Text('컵셉 결과 확인하기'),
                         ),
                       ],

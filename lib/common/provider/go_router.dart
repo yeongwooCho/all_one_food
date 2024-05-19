@@ -1,4 +1,5 @@
 import 'package:all_one_food/all_one_food/view/all_one_food_screen.dart';
+import 'package:all_one_food/all_one_food/view/completion_consulting_screen.dart';
 import 'package:all_one_food/all_one_food/view/request_consulting_screen.dart';
 import 'package:all_one_food/cart/view/cart_screen.dart';
 import 'package:all_one_food/common/view/completion_screen.dart';
@@ -112,6 +113,14 @@ List<RouteBase> get routes => [
                 path: 'request_consulting',
                 name: RequestConsultingScreen.routeName,
                 builder: (context, state) => RequestConsultingScreen(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'completion',
+                    name: CompletionConsultingScreen.routeName,
+                    builder: (context, state) => CompletionConsultingScreen(),
+                  ),
+                ]
               ),
             ],
           ),
