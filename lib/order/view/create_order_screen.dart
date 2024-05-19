@@ -8,6 +8,7 @@ import 'package:all_one_food/order/component/delivery_info.dart';
 import 'package:all_one_food/order/component/order_info.dart';
 import 'package:all_one_food/order/component/product_info.dart';
 import 'package:all_one_food/order/component/toss_payment_container.dart';
+import 'package:all_one_food/order/provider/order_provider.dart';
 import 'package:all_one_food/user/model/user_model.dart';
 import 'package:all_one_food/user/provider/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,14 @@ class _OrderScreenState extends ConsumerState<CreateOrderScreen> {
                   setState(() {
                     isLoading = false;
                   });
+
+                  // 주문/결제하기
+                  ref.read(orderProvider.notifier).orderFromCarts(
+                        carts: carts,
+                        user: user,
+                        cardName: cardName,
+                        totalPrice: totalPrice,
+                      );
 
                   context.goNamed(
                     CompletionScreen.routeName,
