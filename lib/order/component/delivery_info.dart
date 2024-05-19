@@ -77,12 +77,12 @@ class _DeliveryInfoState extends ConsumerState<DeliveryInfo> {
           ),
           const SizedBox(height: 8.0),
           _renderTitleAndForm(
-            title: '주문자',
+            title: '받으시는 분',
             controller: _nameController,
           ),
           const SizedBox(height: 4.0),
           _renderTitleAndForm(
-            title: '주문자 연락처',
+            title: '받으시는 분 연락처',
             controller: _phoneController,
           ),
           const SizedBox(height: 4.0),
@@ -112,10 +112,10 @@ class _DeliveryInfoState extends ConsumerState<DeliveryInfo> {
     return Row(
       children: [
         SizedBox(
-          width: 120.0,
+          width: 140.0,
           child: Text(
             title,
-            style: MyTextStyle.bodyRegular,
+            style: MyTextStyle.descriptionRegular,
           ),
         ),
         Expanded(

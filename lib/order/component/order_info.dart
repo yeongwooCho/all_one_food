@@ -92,10 +92,10 @@ class _OrderInfoState extends ConsumerState<OrderInfo> {
     return Row(
       children: [
         SizedBox(
-          width: 120.0,
+          width: 140.0,
           child: Text(
             title,
-            style: MyTextStyle.bodyRegular,
+            style: MyTextStyle.descriptionRegular,
           ),
         ),
         Expanded(
@@ -125,14 +125,14 @@ class _OrderInfoState extends ConsumerState<OrderInfo> {
           Text(
             title,
             style: isEmphasis
-                ? MyTextStyle.bodyTitleBold
-                : MyTextStyle.bodyRegular,
+                ? MyTextStyle.bodyBold
+                : MyTextStyle.descriptionRegular,
           ),
           Text(
             '$description 원',
             style: isEmphasis
-                ? MyTextStyle.bodyTitleBold
-                : MyTextStyle.bodyRegular,
+                ? MyTextStyle.bodyBold
+                : MyTextStyle.descriptionRegular,
           ),
         ],
       ),
