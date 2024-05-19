@@ -62,4 +62,14 @@ class DataUtils {
     final uuid = Uuid();
     return uuid.v4();
   }
+
+  static String extractNumbers(String input) {
+    // 숫자만을 찾기 위한 정규 표현식
+    RegExp numRegExp = RegExp(r'\d');
+
+    // 입력된 문자열에서 모든 숫자를 찾아 하나의 문자열로 결합
+    String extractedNumbers = input.splitMapJoin(numRegExp,
+        onMatch: (m) => m.group(0)!, onNonMatch: (_) => '');
+    return extractedNumbers;
+  }
 }
