@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:all_one_food/cart/model/cart_model.dart';
 import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/order/model/delivery_model.dart';
@@ -6,20 +8,27 @@ import 'package:all_one_food/order/model/payment_model.dart';
 import 'package:all_one_food/product/model/product_model.dart';
 import 'package:all_one_food/product/provider/product_provider.dart';
 import 'package:all_one_food/user/model/user_model.dart';
+import 'package:all_one_food/user/provider/user_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final orderProvider =
     StateNotifierProvider<OrderStateNotifier, List<OrderModel>>((ref) {
   final products = ref.read(productProvider);
+  final user = ref.read(userProvider) as UserModel;
 
-  return OrderStateNotifier(products: products);
+  return OrderStateNotifier(
+    products: products,
+    user: user,
+  );
 });
 
 class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
   final List<ProductModel> products;
+  final UserModel user;
 
   OrderStateNotifier({
     required this.products,
+    required this.user,
   }) : super([]) {
     state = getOrders();
   }
@@ -82,23 +91,45 @@ class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
 
   List<OrderModel> getOrders() {
     return [
-      // ...products.map((e) {
-      //   DateTime createdAt = DateTime(
-      //     2024,
-      //     Random().nextInt(DateTime.now().month) + 1,
-      //     Random().nextInt(DateTime.now().day) + 1,
-      //   );
-      //
-      //   return OrderModel(
-      //     productModel: e,
-      //     amount: Random().nextInt(30),
-      //     deliveryState:
-      //         DateTime.now().difference(createdAt) < Duration(days: 7)
-      //             ? DeliveryState.doing
-      //             : DeliveryState.done,
-      //     createdAt: createdAt,
-      //   );
-      // }).toList(),
+      ...products.map((e) {
+        DateTime createdAt = DateTime(
+          2024,
+          Random().nextInt(DateTime.now().month) + 1,
+          Random().nextInt(DateTime.now().day) + 1,
+          Random().nextInt(DateTime.now().hour) + 1,
+          Random().nextInt(DateTime.now().minute) + 1,
+        );
+
+        return OrderModel(
+          id: DataUtils.getUuid(),
+          createdAt: createdAt,
+          name: '홍석표',
+          phone: '010-1234-1234',
+          carts: products
+              .map(
+                (e) => CartModel(
+                  id: DataUtils.getUuid(),
+                  product: e,
+                  amount: 10,
+                  isSelected: true,
+                ),
+              )
+              .toList(),
+          delivery: DeliveryModel(
+            id: DataUtils.getUuid(),
+            recipientName: user.address.name,
+            recipientPhone: user.address.phone,
+            recipientAddress: user.address.address,
+            recipientMemo: user.address.detailAddress,
+          ),
+          payment: PaymentModel(
+            id: DataUtils.getUuid(),
+            cardName: '국민카드',
+            price: 4350,
+            createdAt: createdAt,
+          ),
+        );
+      }).toList(),
     ];
   }
 }
