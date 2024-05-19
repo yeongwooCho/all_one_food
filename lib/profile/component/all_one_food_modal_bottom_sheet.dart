@@ -43,7 +43,7 @@ class AllOneFoodModalBottomSheet extends ConsumerWidget {
             ),
             _renderTitleAndDescription(
               title: '주요 가치',
-              description: allOneFood.value.join(', '),
+              description: allOneFood.taste.join(', '),
             ),
             _renderTitleAndDescription(
               title: '희망 생산 원가',

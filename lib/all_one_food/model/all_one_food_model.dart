@@ -2,7 +2,7 @@ class AllOneFoodModel {
   final int id; // primary key
   final String shortInfo;
   final String snack;
-  final List<String> value;
+  final List<String> taste;
   final int wishedPrice;
   final String consultingType;
   final DateTime consultingAt;
@@ -11,7 +11,7 @@ class AllOneFoodModel {
     required this.id,
     required this.shortInfo,
     required this.snack,
-    required this.value,
+    required this.taste,
     required this.wishedPrice,
     required this.consultingType,
     required this.consultingAt,
@@ -21,7 +21,7 @@ class AllOneFoodModel {
     int? id,
     String? shortInfo,
     String? snack,
-    List<String>? value,
+    List<String>? taste,
     int? wishedPrice,
     String? consultingType,
     DateTime? consultingAt,
@@ -30,7 +30,7 @@ class AllOneFoodModel {
       id: id ?? this.id,
       shortInfo: shortInfo ?? this.shortInfo,
       snack: snack ?? this.snack,
-      value: value ?? this.value,
+      taste: taste ?? this.taste,
       wishedPrice: wishedPrice ?? this.wishedPrice,
       consultingType: consultingType ?? this.consultingType,
       consultingAt: consultingAt ?? this.consultingAt,
