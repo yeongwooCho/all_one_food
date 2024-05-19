@@ -11,9 +11,10 @@ class AllOneFoodStateNotifier extends StateNotifier<AllOneFoodModel> {
       : super(
           AllOneFoodModel(
             id: 1,
-            shortInfo: '비건을 위한 다이어트 단백질 에너지바',
-            snack: '에너지바',
+            productInfo: '스낵류',
+            productType: '에너지바',
             taste: ['고소한 맛', '달콤한 맛'],
+            mainSentence: '비건을 위한 다이어트 단백질 에너지바',
             wishedPrice: 1200,
             consultingType: '온라인 상담',
             consultingAt: DateTime(2024, 06, 15, 14, 00),

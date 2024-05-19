@@ -35,11 +35,11 @@ class AllOneFoodModalBottomSheet extends ConsumerWidget {
             const SizedBox(height: 8.0),
             _renderTitleAndDescription(
               title: '한 줄 소개',
-              description: allOneFood.shortInfo,
+              description: allOneFood.mainSentence,
             ),
             _renderTitleAndDescription(
               title: '스낵 분류',
-              description: allOneFood.snack,
+              description: allOneFood.productType,
             ),
             _renderTitleAndDescription(
               title: '주요 가치',
