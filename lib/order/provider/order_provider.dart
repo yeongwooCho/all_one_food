@@ -96,6 +96,7 @@ class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
   }
 
   List<OrderModel> getOrders() {
+    int amount = 10;
     return [
       ...products.map((e) {
         DateTime createdAt = DateTime(
@@ -111,31 +112,31 @@ class OrderStateNotifier extends StateNotifier<List<OrderModel>> {
           createdAt: createdAt,
           name: '홍석표',
           phone: '010-1234-1234',
-          carts: products
-              .map(
-                (e) => CartModel(
-                  id: DataUtils.getUuid(),
-                  product: e,
-                  amount: 10,
-                  isSelected: true,
-                ),
-              )
-              .toList(),
+          status: OrderStatus.done,
+          carts: [
+            CartModel(
+              id: DataUtils.getUuid(),
+              product: e,
+              amount: amount,
+              isSelected: true,
+            )
+          ],
           delivery: DeliveryModel(
             id: DataUtils.getUuid(),
             recipientName: user.address.name,
             recipientPhone: user.address.phone,
-            recipientAddress: user.address.address,
-            recipientMemo: user.address.detailAddress,
+            recipientAddress:
+                '${user.address.address}\n${user.address.detailAddress}',
+            recipientMemo: user.address.memo,
           ),
           payment: PaymentModel(
             id: DataUtils.getUuid(),
             cardName: '국민카드',
-            price: 4350,
+            price: e.price * (100 - e.sale) ~/ 100 * amount,
             createdAt: createdAt,
           ),
         );
-      }).toList(),
+      }),
     ];
   }
 }
