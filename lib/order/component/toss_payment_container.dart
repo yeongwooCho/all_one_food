@@ -1,4 +1,4 @@
-import 'package:all_one_food/common/component/custom_single_drop_down.dart';
+import 'package:all_one_food/common/component/custom_drop_down_single.dart';
 import 'package:all_one_food/common/const/colors.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -165,7 +165,7 @@ class _TossPaymentContainerState extends State<TossPaymentContainer> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              SingleDropDown(
+              CustomSingleDropDown(
                 dropdownList: [
                   '국민카드',
                   '현대카드',
@@ -176,6 +176,7 @@ class _TossPaymentContainerState extends State<TossPaymentContainer> {
                 ],
                 hintText: '카드사 선택',
                 onChanged: widget.onChanged,
+                dropdownHeight: 220,
               ),
               const SizedBox(height: 32.0),
               Row(

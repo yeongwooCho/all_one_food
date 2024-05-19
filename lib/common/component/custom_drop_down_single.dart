@@ -5,29 +5,35 @@ import 'package:flutter/material.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class SingleDropDown extends StatelessWidget {
+class CustomSingleDropDown extends StatelessWidget {
   final List<String> dropdownList;
   final String hintText;
   final ValueChanged<String> onChanged;
+  final double dropdownHeight;
 
-  const SingleDropDown({
+  const CustomSingleDropDown({
     super.key,
     required this.dropdownList,
     required this.hintText,
     required this.onChanged,
+    required this.dropdownHeight,
   });
 
   @override
   Widget build(BuildContext context) {
     return MultiSelectDropDown<int>(
+      // controller: _controller,
       // type
       selectionType: SelectionType.single,
       hint: hintText,
-      hintStyle: MyTextStyle.descriptionRegular,
+      hintStyle: MyTextStyle.descriptionRegular.copyWith(
+        color: MyColor.darkGrey,
+      ),
       // 선택 했을 때 동작
       onOptionSelected: (List<ValueItem> selectedOptions) {
         onChanged(selectedOptions.first.label);
       },
+      onOptionRemoved: (index, option) {},
 
       options: dropdownList.mapIndexed((index, element) {
         return ValueItem<int>(
@@ -57,7 +63,7 @@ class SingleDropDown extends StatelessWidget {
       clearIcon: null,
 
       // dropdown style
-      dropdownHeight: 220,
+      dropdownHeight: dropdownHeight,
       dropdownBorderRadius: 8.0,
       focusedBorderColor: MyColor.primary,
       focusedBorderWidth: 2.0,
