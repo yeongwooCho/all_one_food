@@ -33,19 +33,19 @@ class AllOneFoodModalBottomSheet extends ConsumerWidget {
               style: MyTextStyle.bigTitleMedium,
             ),
             const SizedBox(height: 8.0),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '한 줄 소개',
               description: allOneFood.shortInfo,
             ),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '스낵 분류',
               description: allOneFood.snack,
             ),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '주요 가치',
               description: allOneFood.value.join(', '),
             ),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '희망 생산 원가',
               description:
                   '${DataUtils.convertPriceToMoneyString(price: allOneFood.wishedPrice)} 원',
@@ -56,17 +56,17 @@ class AllOneFoodModalBottomSheet extends ConsumerWidget {
               style: MyTextStyle.bigTitleMedium,
             ),
             const SizedBox(height: 8.0),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '일자',
               description: DataUtils.convertDateTimeToDateString(
                   datetime: allOneFood.consultingAt),
             ),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '시간',
               description: DataUtils.convertDateTimeToTimeString(
                   datetime: allOneFood.consultingAt),
             ),
-            renderTitleAndDescription(
+            _renderTitleAndDescription(
               title: '유형',
               description: allOneFood.consultingType,
             ),
@@ -76,7 +76,7 @@ class AllOneFoodModalBottomSheet extends ConsumerWidget {
     );
   }
 
-  Widget renderTitleAndDescription({
+  Widget _renderTitleAndDescription({
     required String title,
     required String description,
   }) {
