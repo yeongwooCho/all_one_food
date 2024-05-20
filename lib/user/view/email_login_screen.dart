@@ -8,6 +8,7 @@ import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/common/provider/global_provider.dart';
 import 'package:all_one_food/home/view/home_screen.dart';
 import 'package:all_one_food/user/view/find_id_screen.dart';
+import 'package:all_one_food/user/view/find_password_screen.dart';
 import 'package:all_one_food/user/view/term_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -161,7 +162,9 @@ class _BottomButtons extends StatelessWidget {
         renderDivider(),
         renderButton(
           title: '비밀번호 찾기',
-          onPressed: () {},
+          onPressed: () {
+            context.goNamed(FindPasswordScreen.routeName);
+          },
         ),
       ],
     );

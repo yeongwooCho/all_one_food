@@ -19,6 +19,8 @@ import 'package:all_one_food/user/view/certification_screen.dart';
 import 'package:all_one_food/user/view/custom_sns_screen.dart';
 import 'package:all_one_food/user/view/email_login_screen.dart';
 import 'package:all_one_food/user/view/find_id_screen.dart';
+import 'package:all_one_food/user/view/find_password_input_screen.dart';
+import 'package:all_one_food/user/view/find_password_screen.dart';
 import 'package:all_one_food/user/view/input_info_screen.dart';
 import 'package:all_one_food/user/view/login_screen.dart';
 import 'package:all_one_food/user/view/term_detail_screen.dart';
@@ -102,6 +104,18 @@ List<RouteBase> get routes => [
                 path: 'find_id',
                 name: FindIdScreen.routeName,
                 builder: (context, state) => FindIdScreen(),
+              ),
+              GoRoute(
+                path: 'find_password',
+                name: FindPasswordScreen.routeName,
+                builder: (context, state) => FindPasswordScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'input',
+                    name: FindPasswordInputScreen.routeName,
+                    builder: (context, state) => FindPasswordInputScreen(),
+                  ),
+                ],
               ),
             ],
           )
