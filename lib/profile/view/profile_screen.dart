@@ -1,4 +1,5 @@
 import 'package:all_one_food/all_one_food/provider/all_one_food_provider.dart';
+import 'package:all_one_food/all_one_food/view/all_one_food_screen.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/show/show_component_modal_bottom_sheet.dart';
 import 'package:all_one_food/common/component/show/show_cupertino_alert.dart';
@@ -73,11 +74,8 @@ class ProfileScreen extends ConsumerWidget {
                           ),
                           SecondaryButton(
                             onPressed: () {
-                              showCustomModalBottomSheet(
-                                context: context,
-                                bottomSheetWidget: AllOneFoodModalBottomSheet(),
-                              );
-                            },
+                                    context.goNamed(AllOneFoodScreen.routeName);
+                                  },
                             child: const Text('상담 받으러 가기'),
                           ),
                         ],
