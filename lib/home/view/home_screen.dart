@@ -6,6 +6,7 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:all_one_food/product/provider/category_provider.dart';
+import 'package:all_one_food/product/view/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -71,7 +72,12 @@ class _CategoryContainer extends ConsumerWidget {
         children: List.generate(
           categories.length - 1,
           (index) => InkWell(
-            onTap: () {},
+            onTap: () {
+              ref
+                  .read(categorySelectedProvider.notifier)
+                  .update((state) => categories[index + 1]);
+              context.goNamed(ProductScreen.routeName);
+            },
             child: Container(
               decoration: BoxDecoration(
                 color: MyColor.notice,
