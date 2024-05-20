@@ -1,3 +1,4 @@
+import 'package:all_one_food/all_one_food/provider/all_one_food_provider.dart';
 import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/component/show/show_component_modal_bottom_sheet.dart';
 import 'package:all_one_food/common/component/show/show_cupertino_alert.dart';
@@ -6,6 +7,7 @@ import 'package:all_one_food/common/const/image_path.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
+import 'package:all_one_food/common/utils/data_utils.dart';
 import 'package:all_one_food/order/view/order_list_screen.dart';
 import 'package:all_one_food/profile/component/all_one_food_modal_bottom_sheet.dart';
 import 'package:all_one_food/profile/view/edit_profile_screen.dart';
@@ -25,6 +27,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
+    final allOneFood = ref.watch(allOneFoodProvider);
 
     return DefaultLayout(
       appbar: const DefaultAppBar(title: '내 정보'),
@@ -63,16 +66,17 @@ class ProfileScreen extends ConsumerWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Column(
+                          Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '온라인 상담',
+                                allOneFood.consultingType,
                                 style: MyTextStyle.bodyRegular,
                               ),
-                              SizedBox(height: 4.0),
+                              const SizedBox(height: 4.0),
                               Text(
-                                '2024-05-24 14:00',
+                                DataUtils.convertDateTimeToDateTimeString(
+                                    datetime: allOneFood.consultingAt),
                                 style: MyTextStyle.descriptionRegular,
                               ),
                             ],

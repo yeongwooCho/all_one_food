@@ -1,3 +1,4 @@
+import 'package:all_one_food/all_one_food/provider/all_one_food_provider.dart';
 import 'package:all_one_food/all_one_food/view/completion_consulting_screen.dart';
 import 'package:all_one_food/common/component/custom_drop_down_multi.dart';
 import 'package:all_one_food/common/component/custom_drop_down_single.dart';
@@ -9,19 +10,21 @@ import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class RequestConsultingScreen extends StatefulWidget {
+class RequestConsultingScreen extends ConsumerStatefulWidget {
   static String get routeName => 'request_consulting';
 
   const RequestConsultingScreen({super.key});
 
   @override
-  State<RequestConsultingScreen> createState() =>
+  ConsumerState<RequestConsultingScreen> createState() =>
       _RequestConsultingScreenState();
 }
 
-class _RequestConsultingScreenState extends State<RequestConsultingScreen> {
+class _RequestConsultingScreenState
+    extends ConsumerState<RequestConsultingScreen> {
   bool isAnswerProduct1 = false;
   String productInfo = '';
 
@@ -62,16 +65,7 @@ class _RequestConsultingScreenState extends State<RequestConsultingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // AllOneFoodModel(
-    //   id: id,
-    //   productInfo: productInfo,
-    //   productType: productType,
-    //   taste: taste,
-    //   mainSentence: mainSentence,
-    //   wishedPrice: wishedPrice,
-    //   consultingType: consultingType,
-    //   consultingAt: consultingAt,
-    // );
+    final allOneFood = ref.watch(allOneFoodProvider);
 
     return DefaultLayout(
       appbar: const DefaultAppBar(title: '컨설팅 요청'),
@@ -101,16 +95,27 @@ class _RequestConsultingScreenState extends State<RequestConsultingScreen> {
                           textAlign: TextAlign.end,
                           suffixText: '원',
                           onChanged: (String value) {
-                            mainSentence = value;
+                            wishedPrice = value;
                           },
                           onSaved: (String? newValue) {},
                           validator: (String? value) {
                             return null;
                           },
+                          textInputType: TextInputType.number,
                         ),
                         const SizedBox(height: 8.0),
                         PrimaryButton(
                           onPressed: () {
+                            ref.read(allOneFoodProvider.notifier).state =
+                                allOneFood.copyWith(
+                              id: 1,
+                              productInfo: productInfo,
+                              productType: productType,
+                              taste: taste,
+                              mainSentence: mainSentence,
+                              wishedPrice: int.parse(wishedPrice),
+                            );
+
                             context
                                 .goNamed(CompletionConsultingScreen.routeName);
                           },
@@ -257,7 +262,9 @@ class _RequestConsultingScreenState extends State<RequestConsultingScreen> {
                         const SizedBox(height: 8.0),
                         CustomTextFormField(
                           onChanged: (String value) {
-                            mainSentence = value;
+                            setState(() {
+                              mainSentence = value;
+                            });
                           },
                           onSaved: (String? newValue) {},
                           validator: (String? value) {
@@ -266,11 +273,14 @@ class _RequestConsultingScreenState extends State<RequestConsultingScreen> {
                         ),
                         const SizedBox(height: 8.0),
                         SecondaryButton(
-                          onPressed: () {
-                            setState(() {
-                              isAnswerMainSentence = true;
-                            });
-                          },
+                          onPressed: mainSentence.isNotEmpty
+                              ? () {
+                                  setState(() {
+                                    isAnswerMainSentence = true;
+                                    FocusScope.of(context).unfocus();
+                                  });
+                                }
+                              : null,
                           child: const Text('확인'),
                         ),
                       ],
