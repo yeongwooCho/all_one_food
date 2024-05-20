@@ -63,23 +63,13 @@ class ProfileScreen extends ConsumerWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 16.0, horizontal: 12.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: allOneFood.id == 0
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                allOneFood.consultingType,
-                                style: MyTextStyle.bodyRegular,
-                              ),
-                              const SizedBox(height: 4.0),
-                              Text(
-                                DataUtils.convertDateTimeToDateTimeString(
-                                    datetime: allOneFood.consultingAt),
-                                style: MyTextStyle.descriptionRegular,
-                              ),
-                            ],
+                          const Text(
+                            '예약된 상담이\n존재하지 않습니다.',
+                            style: MyTextStyle.bodyRegular,
                           ),
                           SecondaryButton(
                             onPressed: () {
@@ -88,10 +78,40 @@ class ProfileScreen extends ConsumerWidget {
                                 bottomSheetWidget: AllOneFoodModalBottomSheet(),
                               );
                             },
-                            child: const Text('상세보기'),
+                            child: const Text('상담 받으러 가기'),
                           ),
                         ],
-                      ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      allOneFood.consultingType,
+                                      style: MyTextStyle.bodyRegular,
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Text(
+                                      DataUtils.convertDateTimeToDateTimeString(
+                                          datetime: allOneFood.consultingAt),
+                                      style: MyTextStyle.descriptionRegular,
+                                    ),
+                                  ],
+                                ),
+                                SecondaryButton(
+                                  onPressed: () {
+                                    showCustomModalBottomSheet(
+                                      context: context,
+                                      bottomSheetWidget:
+                                          AllOneFoodModalBottomSheet(),
+                                    );
+                                  },
+                                  child: const Text('상세보기'),
+                                ),
+                              ],
+                            ),
                     ),
                   ),
                 ],

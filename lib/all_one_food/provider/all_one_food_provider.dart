@@ -10,7 +10,7 @@ class AllOneFoodStateNotifier extends StateNotifier<AllOneFoodModel> {
   AllOneFoodStateNotifier()
       : super(
           AllOneFoodModel(
-            id: 1,
+            id: 0,
             productInfo: '스낵류',
             productType: '에너지바',
             taste: ['고소한 맛', '달콤한 맛'],
