@@ -18,6 +18,7 @@ import 'package:all_one_food/profile/view/profile_screen.dart';
 import 'package:all_one_food/user/view/certification_screen.dart';
 import 'package:all_one_food/user/view/custom_sns_screen.dart';
 import 'package:all_one_food/user/view/email_login_screen.dart';
+import 'package:all_one_food/user/view/find_id_screen.dart';
 import 'package:all_one_food/user/view/input_info_screen.dart';
 import 'package:all_one_food/user/view/login_screen.dart';
 import 'package:all_one_food/user/view/term_detail_screen.dart';
@@ -46,9 +47,17 @@ List<RouteBase> get routes => [
         builder: (context, state) => SplashScreen(),
       ),
       GoRoute(
-        path: '/completion/:title',
+        path: '/completion/:title/:button_text/:to_route',
         name: CompletionScreen.routeName,
-        builder: (context, state) => CompletionScreen(),
+        builder: (context, state) {
+          final parameters = GoRouterState.of(context).pathParameters;
+
+          return CompletionScreen(
+            title: parameters['title']!,
+            buttonText: parameters['button_text'],
+            toRouteName: parameters['to_route'],
+          );
+        },
       ),
       GoRoute(
         path: '/sns/:title',
@@ -88,6 +97,11 @@ List<RouteBase> get routes => [
                     builder: (context, state) => InputInfoScreen(),
                   ),
                 ],
+              ),
+              GoRoute(
+                path: 'find_id',
+                name: FindIdScreen.routeName,
+                builder: (context, state) => FindIdScreen(),
               ),
             ],
           )
