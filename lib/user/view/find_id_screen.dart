@@ -4,10 +4,9 @@ import 'package:all_one_food/common/component/show/show_custom_toast.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
-import 'package:all_one_food/common/view/completion_screen.dart';
+import 'package:all_one_food/common/view/completion_screen_to_email_login.dart';
 import 'package:all_one_food/user/model/user_model.dart';
 import 'package:all_one_food/user/provider/user_provider.dart';
-import 'package:all_one_food/user/view/email_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -90,11 +89,9 @@ class _FindIdScreenState extends ConsumerState<FindIdScreen> {
                     SecondaryButton(
                       onPressed: () async {
                         context.goNamed(
-                          CompletionScreen.routeName,
+                          CompletionScreenToEmailLogin.routeName,
                           pathParameters: {
                             'title': '고객님의 아이디는\n${user.username}\n입니다.',
-                            'button_text': '로그인 화면으로 이동',
-                            'to_route': EmailLoginScreen.routeName,
                           },
                         );
                       },

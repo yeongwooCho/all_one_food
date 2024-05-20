@@ -3,8 +3,7 @@ import 'package:all_one_food/common/component/default_button.dart';
 import 'package:all_one_food/common/const/text_styles.dart';
 import 'package:all_one_food/common/layout/default_app_bar.dart';
 import 'package:all_one_food/common/layout/default_layout.dart';
-import 'package:all_one_food/common/view/completion_screen.dart';
-import 'package:all_one_food/user/view/email_login_screen.dart';
+import 'package:all_one_food/common/view/completion_screen_to_email_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -41,11 +40,9 @@ class _FindPasswordInputScreenState
             });
 
             context.goNamed(
-              CompletionScreen.routeName,
+              CompletionScreenToEmailLogin.routeName,
               pathParameters: {
                 'title': '비밀번호가\n정상적으로\n변경되었습니다.',
-                'button_text': '로그인 화면으로 이동',
-                'to_route': EmailLoginScreen.routeName,
               },
             );
           },

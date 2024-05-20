@@ -4,6 +4,7 @@ import 'package:all_one_food/all_one_food/view/request_consulting_screen.dart';
 import 'package:all_one_food/all_one_food/view/reserve_consulting.dart';
 import 'package:all_one_food/cart/view/cart_screen.dart';
 import 'package:all_one_food/common/view/completion_screen.dart';
+import 'package:all_one_food/common/view/completion_screen_to_email_login.dart';
 import 'package:all_one_food/common/view/error_screen.dart';
 import 'package:all_one_food/common/view/root_tab.dart';
 import 'package:all_one_food/common/view/splash_screen.dart';
@@ -49,16 +50,21 @@ List<RouteBase> get routes => [
         builder: (context, state) => SplashScreen(),
       ),
       GoRoute(
-        path: '/completion/:title/:button_text/:to_route',
+        path: '/completion/:title',
         name: CompletionScreen.routeName,
         builder: (context, state) {
           final parameters = GoRouterState.of(context).pathParameters;
 
-          return CompletionScreen(
-            title: parameters['title']!,
-            buttonText: parameters['button_text'],
-            toRouteName: parameters['to_route'],
-          );
+          return CompletionScreen(title: parameters['title']!);
+        },
+      ),
+      GoRoute(
+        path: '/completion_find/:title',
+        name: CompletionScreenToEmailLogin.routeName,
+        builder: (context, state) {
+          final parameters = GoRouterState.of(context).pathParameters;
+
+          return CompletionScreenToEmailLogin(title: parameters['title']!);
         },
       ),
       GoRoute(
