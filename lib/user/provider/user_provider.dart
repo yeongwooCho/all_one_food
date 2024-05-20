@@ -16,7 +16,7 @@ class UserStateNotifier extends StateNotifier<UserModelBase> {
     state = UserModel(
       id: 1,
       email: 'asdf@naver.com',
-      username: 'zxcv',
+      username: 'snack0577',
       password: 'zxcv',
       name: '홍석표',
       phone: '01012341234',
