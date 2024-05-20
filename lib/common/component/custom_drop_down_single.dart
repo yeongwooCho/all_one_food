@@ -51,7 +51,7 @@ class CustomSingleDropDown extends StatelessWidget {
       // 선택된 상태
       singleSelectItemStyle: MyTextStyle.descriptionRegular,
       selectedOptionBackgroundColor: MyColor.lightGrey,
-      selectedOptionTextColor: Colors.red,
+      selectedOptionTextColor: MyColor.primary,
       selectedOptionIcon: PhosphorIcon(
         PhosphorIcons.checkCircle(PhosphorIconsStyle.fill),
       ),
